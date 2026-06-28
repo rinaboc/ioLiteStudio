@@ -1,0 +1,17 @@
+{
+    "name": "ioLite.Core.Features",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b215501a57c234b43a7d04ecb11d78a2",
+        "GUID:e49add589357cba4dbcd3d9850d80ba0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
