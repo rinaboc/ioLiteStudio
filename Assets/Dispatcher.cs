@@ -10,7 +10,7 @@ public class Dispatcher : IDispatcher
     private readonly IAppContext _context;
     private readonly Dictionary<Type, object> _handlers = new();
     private readonly Dictionary<Type, object> _asyncHandlers = new();
-    private readonly ConcurrentQueue<(IIntent, CommandResult)> _resultQueue;
+    private readonly ConcurrentQueue<(IIntent, CommandResult)> _resultQueue = new();
     private readonly ActionBlock<Func<Task>> _actionBlock;
     public event Action<ContextMutationResult> ContextMutated;
 

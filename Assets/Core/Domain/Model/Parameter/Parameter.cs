@@ -1,0 +1,25 @@
+using System;
+using UnityEngine;
+
+namespace Core.Domain
+{
+    public enum BlendMode { Absolute, Additive }
+
+    public class Parameter
+    {
+        public Guid Id;
+        public string Name;
+        public int MaxValueInt;
+        public int MinValueInt;
+        public int CurrentValueInt;
+        static readonly float PRECISION = 1000f;
+
+        public BlendMode BlendMode;
+
+        public float CurrentValueFloat
+        {
+            get => CurrentValueInt / PRECISION;
+            set => CurrentValueInt = Mathf.RoundToInt(value * PRECISION);
+        }
+    }
+}

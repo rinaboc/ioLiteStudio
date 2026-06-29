@@ -9,7 +9,16 @@ public class AppInitializer : MonoBehaviour
 
     void Awake()
     {
-        _context = new AppContext();
+        _context = new AppContext(
+            new NodeRegistry(),
+            new ParameterRegistry(),
+            new ParameterKeyRegistry(),
+            new AnimationClipRegistry(),
+            new ParameterTimelineTrackRegistry(),
+            new TimelineKeyframeRegistry(),
+            new ProjectSettings(),
+            new DefaultSession()
+        );
         _dispatcher = new Dispatcher(_context);
     }
 
@@ -22,6 +31,6 @@ public class AppInitializer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        _dispatcher.CheckResultQueue();
     }
 }
