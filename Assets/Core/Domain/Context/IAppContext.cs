@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Core.Domain.Context
+namespace Core.Domain
 {
     public interface IAppContext
     {
