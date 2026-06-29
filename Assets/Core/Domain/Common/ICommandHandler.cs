@@ -1,5 +1,3 @@
-using Core.Domain;
-
 namespace Core.Domain
 {
     public interface ICommandHandler<TIntent> where TIntent : IIntent

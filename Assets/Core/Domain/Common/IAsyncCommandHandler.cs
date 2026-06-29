@@ -1,4 +1,3 @@
-using Core.Domain;
 using UnityEngine;
 
 namespace Core.Domain

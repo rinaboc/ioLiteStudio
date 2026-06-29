@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using Core.Domain;
 
 public class Dispatcher : IDispatcher
@@ -7,21 +10,63 @@ public class Dispatcher : IDispatcher
     private readonly IAppContext _context;
     private readonly Dictionary<Type, object> _handlers = new();
     private readonly Dictionary<Type, object> _asyncHandlers = new();
+    private readonly ConcurrentQueue<(IIntent, CommandResult)> _resultQueue;
+    private readonly ActionBlock<Func<Task>> _actionBlock;
     public event Action<ContextMutationResult> ContextMutated;
 
     public Dispatcher(IAppContext context)
     {
         _context = context;
+
+        _actionBlock = new(async task =>
+        {
+            await task.Invoke();
+        }, new ExecutionDataflowBlockOptions
+        {
+            MaxDegreeOfParallelism = 1
+        });
     }
 
     public void CheckResultQueue()
     {
-        throw new NotImplementedException();
+        while (_resultQueue.TryDequeue(out (IIntent intent, CommandResult result) item))
+        {
+            ProcessResult(item.intent, item.result);
+        }
     }
 
     public void Dispatch<TIntent>(TIntent intent) where TIntent : IIntent
     {
-        throw new NotImplementedException();
+        if (TryGetAsyncHandler<TIntent>(out var asyncHandler))
+        {
+            _actionBlock.Post(async () =>
+            {
+                var result = await asyncHandler.Execute(intent, _context);
+                _resultQueue.Enqueue((intent, result));
+            });
+            return;
+        }
+        else if (TryGetHandler<TIntent>(out var handler))
+        {
+            var result = handler.Execute(intent, _context);
+            ProcessResult(intent, result);
+            return;
+        }
+
+        // TODO: couldn't find handler to process intent
+        // dispatch error log
+    }
+
+    private void ProcessResult(IIntent intent, CommandResult result)
+    {
+        result.Mutation?.Invoke();
+
+        if (result.Revert != null)
+        {
+            // TODO: create step for undo service
+        }
+
+        ContextMutated?.Invoke(result.MutationResult);
     }
 
     public void RegisterHandler<TIntent>(ICommandHandler<TIntent> handler) where TIntent : IIntent
@@ -44,5 +89,29 @@ public class Dispatcher : IDispatcher
         }
 
         _asyncHandlers[typeof(TIntent)] = handler;
+    }
+
+    private bool TryGetAsyncHandler<TIntent>(out IAsyncCommandHandler<TIntent> asyncHandler) where TIntent : IIntent
+    {
+        asyncHandler = null;
+        if (_asyncHandlers.TryGetValue(typeof(TIntent), out var handler))
+        {
+            asyncHandler = (IAsyncCommandHandler<TIntent>)handler;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryGetHandler<TIntent>(out ICommandHandler<TIntent> syncHandler) where TIntent : IIntent
+    {
+        syncHandler = null;
+        if (_handlers.TryGetValue(typeof(TIntent), out var handler))
+        {
+            syncHandler = (ICommandHandler<TIntent>)handler;
+            return true;
+        }
+
+        return false;
     }
 }
