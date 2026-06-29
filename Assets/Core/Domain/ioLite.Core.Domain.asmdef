@@ -1,13 +1,13 @@
 {
     "name": "ioLite.Core.Domain",
-    "rootNamespace": "",
+    "rootNamespace": "Core.Domain",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

@@ -1,6 +1,6 @@
 {
     "name": "ioLite.Core.Data",
-    "rootNamespace": "",
+    "rootNamespace": "Core.Data",
     "references": [
         "GUID:3e1798597537f3a43874d03717792601"
     ],
