@@ -9,5 +9,6 @@ namespace Core.Domain
         void RegisterHandler<TIntent>(IAsyncCommandHandler<TIntent> handler) where TIntent : IIntent;
         void Dispatch<TIntent>(TIntent intent) where TIntent : IIntent;
         void CheckResultQueue();
+        IAppContext Context { get; }
     }
 }

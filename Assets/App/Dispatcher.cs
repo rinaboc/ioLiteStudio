@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Core.Domain;
-using Core.Services;
 
 public class Dispatcher : IDispatcher, IDisposable
 {
@@ -14,6 +13,7 @@ public class Dispatcher : IDispatcher, IDisposable
     private readonly ConcurrentQueue<(IIntent, CommandResult)> _resultQueue = new();
     private readonly ActionBlock<Func<Task>> _actionBlock;
     public event Action<ContextMutationResult> ContextMutated;
+    public IAppContext Context => _context;
 
     public Dispatcher(IAppContext context)
     {

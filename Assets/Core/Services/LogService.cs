@@ -1,19 +1,13 @@
 using System;
 using System.IO;
 using System.Threading.Tasks.Dataflow;
+using Core.Domain;
 using Serilog;
 using Serilog.Sinks.Unity3D;
 using UnityEngine;
 
 namespace Core.Services
 {
-    public interface ILogService
-    {
-        void LogInfo(string msg, object property = null);
-        void LogWarning(string msg, object property = null);
-        void LogError(string msg, Exception ex = null);
-    }
-
     public class LogService : ILogService, IDisposable
     {
         private readonly Serilog.ILogger _logger;

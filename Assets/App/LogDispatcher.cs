@@ -7,6 +7,7 @@ public class LogDispatcher : IDispatcher
     private readonly IDispatcher _dispatcher;
 
     public event Action<ContextMutationResult> ContextMutated;
+    public IAppContext Context => _dispatcher.Context;
 
     public LogDispatcher(IDispatcher dispatcher)
     {

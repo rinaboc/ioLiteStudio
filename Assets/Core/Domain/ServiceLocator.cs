@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Concurrent;
-using Core.Services;
+using Core.Domain;
 
 public static class ServiceLocator
 {
