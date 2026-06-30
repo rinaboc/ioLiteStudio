@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Core.Domain;
+using Core.Services;
 
-public class Dispatcher : IDispatcher
+public class Dispatcher : IDispatcher, IDisposable
 {
     private readonly IAppContext _context;
     private readonly Dictionary<Type, object> _handlers = new();
@@ -53,8 +54,8 @@ public class Dispatcher : IDispatcher
             return;
         }
 
-        // TODO: couldn't find handler to process intent
-        // dispatch error log
+        ServiceLocator.Get<ILogService>()
+            .LogError($"[DISPATCHER] Couldn't find a handler to proccess intent: {typeof(TIntent).Name}");
     }
 
     private void ProcessResult(IIntent intent, CommandResult result)
@@ -73,7 +74,7 @@ public class Dispatcher : IDispatcher
     {
         if (_handlers.ContainsKey(typeof(TIntent)))
         {
-            // TODO: dispatch error log
+            ServiceLocator.Get<ILogService>().LogWarning($"[DISPATCHER] Handler of {typeof(TIntent)} already registered.");
             return;
         }
 
@@ -84,7 +85,7 @@ public class Dispatcher : IDispatcher
     {
         if (_asyncHandlers.ContainsKey(typeof(TIntent)))
         {
-            // TODO: dispatch error log
+            ServiceLocator.Get<ILogService>().LogWarning($"[DISPATCHER] Handler of {typeof(TIntent)} already registered.");
             return;
         }
 
@@ -113,5 +114,10 @@ public class Dispatcher : IDispatcher
         }
 
         return false;
+    }
+
+    public void Dispose()
+    {
+        _actionBlock.Complete();
     }
 }

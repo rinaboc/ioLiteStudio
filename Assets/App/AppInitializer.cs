@@ -1,6 +1,7 @@
 using Core.Domain;
 using Core.Data;
 using UnityEngine;
+using Core.Services;
 
 public class AppInitializer : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class AppInitializer : MonoBehaviour
 
     void Awake()
     {
+        ServiceLocator.Register<ILogService>(new LogService());
+
         _context = new AppContext(
             new NodeRegistry(),
             new ParameterRegistry(),
@@ -19,7 +22,7 @@ public class AppInitializer : MonoBehaviour
             new ProjectSettings(),
             new DefaultSession()
         );
-        _dispatcher = new Dispatcher(_context);
+        _dispatcher = new LogDispatcher(new Dispatcher(_context));
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

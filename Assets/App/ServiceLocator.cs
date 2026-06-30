@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using Core.Services;
 
 public static class ServiceLocator
 {
@@ -9,7 +10,11 @@ public static class ServiceLocator
     public static bool IsRegistered<T>() => _services.ContainsKey(typeof(T));
     public static T Get<T>()
     {
-        _services.TryGetValue(typeof(T), out var service);
+        if (!_services.TryGetValue(typeof(T), out var service))
+        {
+            Get<ILogService>().LogError($"[SERVICE LOCATOR] {typeof(T).Name} service not found.");
+            throw new ArgumentException();
+        }
         return (T)service;
     }
 }
