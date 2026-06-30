@@ -1,0 +1,15 @@
+using System;
+using System.Collections.Concurrent;
+
+public static class ServiceLocator
+{
+    private static ConcurrentDictionary<Type, object> _services = new();
+    public static bool Register<T>(T service) => _services.TryAdd(typeof(T), service);
+    public static void UnRegister<T>() => _services.TryRemove(typeof(T), out _);
+    public static bool IsRegistered<T>() => _services.ContainsKey(typeof(T));
+    public static T Get<T>()
+    {
+        _services.TryGetValue(typeof(T), out var service);
+        return (T)service;
+    }
+}
