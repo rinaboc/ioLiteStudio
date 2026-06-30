@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Threading.Tasks.Dataflow;
 using Core.Domain;
 using Serilog;
 using Serilog.Sinks.Unity3D;
@@ -8,10 +7,9 @@ using UnityEngine;
 
 namespace Core.Services
 {
-    public class LogService : ILogService, IDisposable
+    public class LogService : ILogService
     {
         private readonly Serilog.ILogger _logger;
-        private readonly ActionBlock<Action> _loggingBlock;
 
         public LogService()
         {
@@ -30,18 +28,16 @@ namespace Core.Services
             );
 #endif
             _logger = logConfig.CreateLogger();
-            _loggingBlock = new(action => action?.Invoke(), new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 1 });
         }
 
         public void Dispose()
         {
-            _loggingBlock.Complete();
             Log.CloseAndFlush();
         }
 
         public void LogError(string msg, Exception ex = null)
         {
-            _loggingBlock.Post(() =>
+            ServiceLocator.Get<IThreadPoolService>().Post(() =>
             {
                 if (ex != null) _logger.Error(ex, msg);
                 else _logger.Error(msg);
@@ -50,7 +46,7 @@ namespace Core.Services
 
         public void LogInfo(string msg, object property = null)
         {
-            _loggingBlock.Post(() =>
+            ServiceLocator.Get<IThreadPoolService>().Post(() =>
             {
                 if (property != null) _logger.Information(msg + " {@Data}", property);
                 else _logger.Information(msg);
@@ -59,7 +55,7 @@ namespace Core.Services
 
         public void LogWarning(string msg, object property = null)
         {
-            _loggingBlock.Post(() =>
+            ServiceLocator.Get<IThreadPoolService>().Post(() =>
             {
                 if (property != null) _logger.Warning(msg + " {@Data}", property);
                 else _logger.Warning(msg);

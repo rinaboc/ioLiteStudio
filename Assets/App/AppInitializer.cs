@@ -11,6 +11,7 @@ public class AppInitializer : MonoBehaviour
     void Awake()
     {
         ServiceLocator.Register<ILogService>(new LogService());
+        ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
 
         _context = new AppContext(
             new NodeRegistry(),

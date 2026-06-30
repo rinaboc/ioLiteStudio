@@ -1,31 +1,21 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using Core.Domain;
+using Core.Services;
 
-public class Dispatcher : IDispatcher, IDisposable
+public class Dispatcher : IDispatcher
 {
     private readonly IAppContext _context;
     private readonly Dictionary<Type, object> _handlers = new();
     private readonly Dictionary<Type, object> _asyncHandlers = new();
     private readonly ConcurrentQueue<(IIntent, CommandResult)> _resultQueue = new();
-    private readonly ActionBlock<Func<Task>> _actionBlock;
     public event Action<ContextMutationResult> ContextMutated;
     public IAppContext Context => _context;
 
     public Dispatcher(IAppContext context)
     {
         _context = context;
-
-        _actionBlock = new(async task =>
-        {
-            await task.Invoke();
-        }, new ExecutionDataflowBlockOptions
-        {
-            MaxDegreeOfParallelism = 1
-        });
     }
 
     public void CheckResultQueue()
@@ -40,7 +30,7 @@ public class Dispatcher : IDispatcher, IDisposable
     {
         if (TryGetAsyncHandler<TIntent>(out var asyncHandler))
         {
-            _actionBlock.Post(async () =>
+            ServiceLocator.Get<IThreadPoolService>().Post(async () =>
             {
                 var result = await asyncHandler.Execute(intent, _context);
                 _resultQueue.Enqueue((intent, result));
@@ -114,10 +104,5 @@ public class Dispatcher : IDispatcher, IDisposable
         }
 
         return false;
-    }
-
-    public void Dispose()
-    {
-        _actionBlock.Complete();
     }
 }

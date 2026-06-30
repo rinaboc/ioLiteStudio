@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Domain
 {
-    public interface ILogService
+    public interface ILogService : IDisposable
     {
         void LogInfo(string msg, object property = null);
         void LogWarning(string msg, object property = null);

@@ -1,5 +1,7 @@
 ﻿<Solution>
   <Project Path="ioLite.Core.Data.csproj" />
+  <Project Path="ioLite.App.csproj" />
   <Project Path="ioLite.Core.Domain.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="ioLite.Core.Services.csproj" />
+  <Project Path="Serilog.Sinks.Unity3D.csproj" />
 </Solution>
