@@ -3,5 +3,6 @@
   <Project Path="ioLite.App.csproj" />
   <Project Path="ioLite.Core.Domain.csproj" />
   <Project Path="ioLite.Core.Services.csproj" />
+  <Project Path="ioLite.Core.Features.csproj" />
   <Project Path="Serilog.Sinks.Unity3D.csproj" />
 </Solution>

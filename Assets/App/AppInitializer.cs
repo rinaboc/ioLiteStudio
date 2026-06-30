@@ -2,6 +2,7 @@ using Core.Domain;
 using Core.Data;
 using UnityEngine;
 using Core.Services;
+using Core.Features;
 
 public class AppInitializer : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class AppInitializer : MonoBehaviour
 
     void Awake()
     {
-        ServiceLocator.Register<ILogService>(new LogService());
-        ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
+        RegisterServices();
 
         _context = new AppContext(
             new NodeRegistry(),
@@ -23,16 +23,24 @@ public class AppInitializer : MonoBehaviour
             new ProjectSettings(),
             new DefaultSession()
         );
+
         _dispatcher = new LogDispatcher(new Dispatcher(_context));
+        RegisterHandlers();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void RegisterServices()
     {
-
+        ServiceLocator.Register<ILogService>(new LogService());
+        ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
+        ServiceLocator.Register<IUndoService>(new UndoService(40));
     }
 
-    // Update is called once per frame
+    void RegisterHandlers()
+    {
+        _dispatcher.RegisterHandler(new UndoCommandHandler());
+        _dispatcher.RegisterHandler(new RedoCommandHandler());
+    }
+
     void Update()
     {
         _dispatcher.CheckResultQueue();

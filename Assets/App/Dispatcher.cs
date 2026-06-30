@@ -54,10 +54,12 @@ public class Dispatcher : IDispatcher
 
         if (result.Revert != null)
         {
-            // TODO: create step for undo service
+            ServiceLocator.Get<IUndoService>()
+            .PushStep(new HistoryStep(intent, result));
         }
 
-        ContextMutated?.Invoke(result.MutationResult);
+        if (result.MutationResult != null)
+            ContextMutated?.Invoke(result.MutationResult);
     }
 
     public void RegisterHandler<TIntent>(ICommandHandler<TIntent> handler) where TIntent : IIntent
