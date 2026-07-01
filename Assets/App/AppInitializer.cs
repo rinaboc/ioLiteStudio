@@ -33,6 +33,7 @@ public class AppInitializer : MonoBehaviour
         ServiceLocator.Register<ILogService>(new LogService());
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
         ServiceLocator.Register<IUndoService>(new UndoService(40));
+        ServiceLocator.Register<IViewModelManager>(new ViewModelManager(_dispatcher));
     }
 
     void RegisterHandlers()
