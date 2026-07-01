@@ -20,6 +20,12 @@ namespace Core.Services
         public int UndoCount => _undoStack.Count;
         public int RedoCount => _redoStack.Count;
 
+        public void Clear()
+        {
+            _undoStack.Clear();
+            _redoStack.Clear();
+        }
+
         public void PushStep(HistoryStep step)
         {
             _undoStack.Push(step);

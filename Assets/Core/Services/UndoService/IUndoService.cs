@@ -12,5 +12,6 @@ namespace Core.Services
         bool Redo(out Action mutation);
         int UndoCount { get; }
         int RedoCount { get; }
+        void Clear();
     }
 }

@@ -30,7 +30,7 @@ public class Dispatcher : IDispatcher
     {
         if (TryGetAsyncHandler<TIntent>(out var asyncHandler))
         {
-            ServiceLocator.Get<IThreadPoolService>().Post(async () =>
+            ServiceLocator.Get<IThreadPoolService>()?.Post(async () =>
             {
                 var result = await asyncHandler.Execute(intent, _context);
                 _resultQueue.Enqueue((intent, result));
@@ -52,10 +52,14 @@ public class Dispatcher : IDispatcher
     {
         result.Mutation?.Invoke();
 
-        if (result.Revert != null)
+        var undoService = ServiceLocator.Get<IUndoService>();
+        if (result.Revert != null && undoService != null)
+            undoService.PushStep(new HistoryStep(intent, result));
+
+        if (undoService != null)
         {
-            ServiceLocator.Get<IUndoService>()
-            .PushStep(new HistoryStep(intent, result));
+            Context.CurrentSession.UndoCount = undoService.UndoCount;
+            Context.CurrentSession.RedoCount = undoService.RedoCount;
         }
 
         if (result.MutationResult != null)
@@ -66,7 +70,7 @@ public class Dispatcher : IDispatcher
     {
         if (_handlers.ContainsKey(typeof(TIntent)))
         {
-            ServiceLocator.Get<ILogService>().LogWarning($"[DISPATCHER] Handler of {typeof(TIntent)} already registered.");
+            ServiceLocator.Get<ILogService>()?.LogWarning($"[DISPATCHER] Handler of {typeof(TIntent)} already registered.");
             return;
         }
 
@@ -77,7 +81,7 @@ public class Dispatcher : IDispatcher
     {
         if (_asyncHandlers.ContainsKey(typeof(TIntent)))
         {
-            ServiceLocator.Get<ILogService>().LogWarning($"[DISPATCHER] Handler of {typeof(TIntent)} already registered.");
+            ServiceLocator.Get<ILogService>()?.LogWarning($"[DISPATCHER] Handler of {typeof(TIntent)} already registered.");
             return;
         }
 
