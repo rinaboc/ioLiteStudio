@@ -10,8 +10,8 @@ public class ArchitectureTests
     private IAppContext _dummyContext;
     private IDispatcher _dispatcher;
 
-    [SetUp]
-    public void Setup()
+    [OneTimeSetUp]
+    public void OneTimeSetup()
     {
         _dummyContext = new DummyContext();
         _dispatcher = new Dispatcher(_dummyContext);
@@ -24,12 +24,22 @@ public class ArchitectureTests
 
         _dispatcher.RegisterHandler(new AsyncUndoableIntentCommandHandler());
         _dispatcher.RegisterHandler(new AsyncNonUndoableIntentCommandHandler());
+
+        _dispatcher.RegisterHandler(new UndoCommandHandler());
+        _dispatcher.RegisterHandler(new RedoCommandHandler());
+    }
+
+    [SetUp]
+    public void Setup()
+    {
+        ServiceLocator.Get<IUndoService>().Clear();
+        _dummyContext.CurrentSession.UndoCount = 0;
+        _dummyContext.CurrentSession.RedoCount = 0;
     }
 
     [Test]
     public void When_UndoableIntentDispatched_Then_SessionCountsChange()
     {
-        ServiceLocator.Get<IUndoService>().Clear();
         var undoCount = _dummyContext.CurrentSession.UndoCount;
 
         _dispatcher.Dispatch(new UndoableIntent());
@@ -46,7 +56,6 @@ public class ArchitectureTests
     [Test]
     public async Task When_AsyncUndoableIntentDispatched_Then_SessionCountsChange()
     {
-        ServiceLocator.Get<IUndoService>().Clear();
         var undoCount = _dummyContext.CurrentSession.UndoCount;
 
         _dispatcher.Dispatch(new AsyncUndoableIntent());
@@ -71,7 +80,6 @@ public class ArchitectureTests
     [Test]
     public void When_NonUndoableIntentDispatched_Then_SessionCountsAreUnchanged()
     {
-        ServiceLocator.Get<IUndoService>().Clear();
         var undoCount = _dummyContext.CurrentSession.UndoCount;
         var redoCount = _dummyContext.CurrentSession.RedoCount;
 
@@ -84,7 +92,6 @@ public class ArchitectureTests
     [Test]
     public async Task When_AsyncNonUndoableIntentDispatched_Then_SessionCountsAreUnchanged()
     {
-        ServiceLocator.Get<IUndoService>().Clear();
         var undoCount = _dummyContext.CurrentSession.UndoCount;
         var redoCount = _dummyContext.CurrentSession.RedoCount;
 
@@ -101,7 +108,6 @@ public class ArchitectureTests
     [Test]
     public void When_UndoableIntentDispatched_Then_DoUndo_Then_SessionCountsChanged()
     {
-        ServiceLocator.Get<IUndoService>().Clear();
         var undoCount = _dummyContext.CurrentSession.UndoCount;
 
         _dispatcher.Dispatch(new UndoableIntent());
@@ -109,5 +115,18 @@ public class ArchitectureTests
 
         Assert.AreEqual(undoCount, _dummyContext.CurrentSession.UndoCount);
         Assert.AreEqual(1, _dummyContext.CurrentSession.RedoCount);
+    }
+
+    [Test]
+    public void When_UndoableIntentDispatched_Then_DoUndoRedo_Then_SessionCountsUnchanged()
+    {
+        var undoCount = _dummyContext.CurrentSession.UndoCount;
+
+        _dispatcher.Dispatch(new UndoableIntent());
+        _dispatcher.Dispatch(new UndoIntent());
+        _dispatcher.Dispatch(new RedoIntent());
+
+        Assert.AreEqual(undoCount + 1, _dummyContext.CurrentSession.UndoCount);
+        Assert.AreEqual(0, _dummyContext.CurrentSession.RedoCount);
     }
 }
