@@ -11,8 +11,8 @@ namespace Core.Domain
         public string Name;
         public int? ParentId;
         public abstract NodeType Type { get; }
-        // public Transform2D DefaultTransform;
-        // public Transform2D LocalTransform;
+        public Transform2D DefaultTransform;
+        public Transform2D LocalTransform;
     }
 
     public class DeformerNode : Node
@@ -25,7 +25,7 @@ namespace Core.Domain
         public override NodeType Type => NodeType.Mesh;
         public Texture2D Tex;
         public int LayerOrder;
-        // public MeshInfo DefaultMesh;
+        public MeshInfo DefaultMesh;
         public Dictionary<int, Vector2> VertexOffsets;
     }
 }

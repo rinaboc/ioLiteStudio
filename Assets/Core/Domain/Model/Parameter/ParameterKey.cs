@@ -9,7 +9,7 @@ namespace Core.Domain
         public Guid Id;
         public int TargetNodeId;
         public Dictionary<Guid, int> ParameterConditions;
-        // TODO: public Transform2D TransformDelta;
+        public Transform2D TransformDelta; // absolute parameter : actual transformation, additive parameter : delta transformation from default
     }
 
     public class ParameterMeshKey : ParameterKey
