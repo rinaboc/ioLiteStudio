@@ -11,7 +11,6 @@ public class AppInitializer : MonoBehaviour
 
     void Awake()
     {
-        RegisterServices();
 
         _context = new AppContext(
             new NodeRegistry(),
@@ -25,7 +24,21 @@ public class AppInitializer : MonoBehaviour
         );
 
         _dispatcher = new LogDispatcher(new Dispatcher(_context));
+        RegisterServices();
         RegisterHandlers();
+        CreateViewModels();
+    }
+
+    private void CreateViewModels()
+    {
+        var manager = ServiceLocator.Get<IViewModelManager>();
+
+        var paramState = new ParameterUIState();
+        manager.Create(
+            paramState,
+            (s, dispatcher) => new ParameterStore(s, dispatcher),
+            (s, dispatcher) => new ViewModel<ParameterUIState>(s, dispatcher)
+        );
     }
 
     void RegisterServices()

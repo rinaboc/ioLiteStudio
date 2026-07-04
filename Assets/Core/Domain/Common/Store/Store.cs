@@ -12,7 +12,7 @@ namespace Core.Domain
 
         public event Action<TState> StateChanged;
 
-        public Store(TState state, IDispatcher dispatcher)
+        protected Store(TState state, IDispatcher dispatcher)
         {
             _state = state;
             _dispatcher = dispatcher;
