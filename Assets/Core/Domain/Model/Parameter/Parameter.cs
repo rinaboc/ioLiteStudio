@@ -21,5 +21,17 @@ namespace Core.Domain
             get => CurrentValueInt / PRECISION;
             set => CurrentValueInt = Mathf.RoundToInt(value * PRECISION);
         }
+
+        public float MinValueFloat
+        {
+            get => MinValueInt / PRECISION;
+            set => MinValueInt = Mathf.RoundToInt(value * PRECISION);
+        }
+
+        public float MaxValueFloat
+        {
+            get => MaxValueInt / PRECISION;
+            set => MaxValueInt = Mathf.RoundToInt(value * PRECISION);
+        }
     }
 }
