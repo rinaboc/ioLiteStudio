@@ -1,0 +1,16 @@
+{
+    "name": "ioLite.Core.Data",
+    "rootNamespace": "Core.Data",
+    "references": [
+        "GUID:b215501a57c234b43a7d04ecb11d78a2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

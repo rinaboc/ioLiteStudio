@@ -1,0 +1,21 @@
+{
+    "name": "ioLite.App",
+    "rootNamespace": "App",
+    "references": [
+        "GUID:3e1798597537f3a43874d03717792601",
+        "GUID:b215501a57c234b43a7d04ecb11d78a2",
+        "GUID:56b8ea2476019734b82b076a803bd688",
+        "GUID:e49add589357cba4dbcd3d9850d80ba0",
+        "GUID:d2bed68f00c6d1441a82f6ce03c4614a",
+        "GUID:584920e9d6da10543a1a56be4a6e2f52"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
