@@ -44,5 +44,22 @@ namespace Core.Domain
             MaxValueFloat = config.Max;
             BlendMode = config.BlendMode;
         }
+
+        public ParameterConfig Config
+        {
+            get
+            {
+                return new ParameterConfig(
+                    Name, MaxValueFloat, MinValueFloat, BlendMode
+                );
+            }
+            set
+            {
+                Name = value.Name;
+                MaxValueFloat = value.Max;
+                MinValueFloat = value.Min;
+                BlendMode = value.BlendMode;
+            }
+        }
     }
 }

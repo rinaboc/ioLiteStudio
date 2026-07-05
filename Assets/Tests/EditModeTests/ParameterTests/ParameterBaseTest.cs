@@ -22,6 +22,7 @@ public abstract class ParameterBaseTest
         _dispatcher.RegisterHandler(new CreateParameterCommandHandler());
         _dispatcher.RegisterHandler(new DeleteParameterCommandHandler());
         _dispatcher.RegisterHandler(new SelectParameterCommandHandler());
+        _dispatcher.RegisterHandler(new EditParameterCommandHandler());
         _dispatcher.RegisterHandler(new UndoCommandHandler());
         _dispatcher.RegisterHandler(new RedoCommandHandler());
     }
