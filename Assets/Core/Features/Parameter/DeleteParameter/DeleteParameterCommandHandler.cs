@@ -25,10 +25,9 @@ namespace Core.Features
             return new CommandResult(
                 mutation,
                 revert,
-                new ContextMutationResult(new ContextMutationType[]
-                {
+                new ContextMutationResult(
                     ContextMutationType.Parameter
-                })
+                )
             );
 
         }

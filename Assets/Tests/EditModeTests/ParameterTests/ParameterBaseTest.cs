@@ -17,9 +17,11 @@ public abstract class ParameterBaseTest
 
         ServiceLocator.Register<IUndoService>(new UndoService(20));
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
+        ServiceLocator.Register<ILogService>(new LogService());
 
         _dispatcher.RegisterHandler(new CreateParameterCommandHandler());
         _dispatcher.RegisterHandler(new DeleteParameterCommandHandler());
+        _dispatcher.RegisterHandler(new SelectParameterCommandHandler());
         _dispatcher.RegisterHandler(new UndoCommandHandler());
         _dispatcher.RegisterHandler(new RedoCommandHandler());
     }

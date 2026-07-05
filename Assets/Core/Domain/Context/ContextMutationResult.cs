@@ -5,5 +5,5 @@ namespace Core.Domain
         Parameter
     }
 
-    public record ContextMutationResult(ContextMutationType[] ContextMutations);
+    public record ContextMutationResult(params ContextMutationType[] ContextMutations);
 }

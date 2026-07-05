@@ -27,7 +27,7 @@ namespace Core.Features
                 Mutation: mutation,
                 Revert: revert,
                 MutationResult: new ContextMutationResult(
-                    new[] { ContextMutationType.Parameter }
+                    ContextMutationType.Parameter
                 )
             );
         }
