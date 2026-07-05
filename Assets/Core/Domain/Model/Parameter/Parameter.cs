@@ -1,4 +1,5 @@
 using System;
+using Core.Features;
 using UnityEngine;
 
 namespace Core.Domain
@@ -32,6 +33,16 @@ namespace Core.Domain
         {
             get => MaxValueInt / PRECISION;
             set => MaxValueInt = Mathf.RoundToInt(value * PRECISION);
+        }
+
+        public Parameter() { }
+
+        public Parameter(ParameterConfig config)
+        {
+            Name = config.Name;
+            MinValueFloat = config.Min;
+            MaxValueFloat = config.Max;
+            BlendMode = config.BlendMode;
         }
     }
 }

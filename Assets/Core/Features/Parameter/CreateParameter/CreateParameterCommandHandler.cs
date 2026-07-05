@@ -7,13 +7,9 @@ namespace Core.Features
     {
         public CommandResult Execute(CreateParameterIntent intent, IAppContext context)
         {
-            var parameter = new Parameter()
+            var parameter = new Parameter(intent.Config)
             {
                 Id = Guid.NewGuid(),
-                Name = intent.Config.Name,
-                MinValueFloat = intent.Config.Min,
-                MaxValueFloat = intent.Config.Max,
-                BlendMode = intent.Config.BlendMode,
                 CurrentValueFloat = (intent.Config.Min + intent.Config.Max) * 0.5f
             };
 

@@ -19,6 +19,7 @@ public abstract class ParameterBaseTest
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
 
         _dispatcher.RegisterHandler(new CreateParameterCommandHandler());
+        _dispatcher.RegisterHandler(new DeleteParameterCommandHandler());
         _dispatcher.RegisterHandler(new UndoCommandHandler());
         _dispatcher.RegisterHandler(new RedoCommandHandler());
     }
