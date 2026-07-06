@@ -5,6 +5,8 @@
   <Project Path="ioLite.App.csproj" />
   <Project Path="EditModeTests.csproj" />
   <Project Path="ioLite.Core.Domain.csproj" />
+  <Project Path="NodeEditModeTests.csproj" />
+  <Project Path="ParameterEditModeTests.csproj" />
   <Project Path="Serilog.Sinks.Unity3D.csproj" />
   <Project Path="PlayModeTests.csproj" />
 </Solution>

@@ -2,7 +2,7 @@ namespace Core.Domain
 {
     public enum ContextMutationType
     {
-        Parameter
+        Parameter, Node
     }
 
     public record ContextMutationResult(params ContextMutationType[] ContextMutations);
