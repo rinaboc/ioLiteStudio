@@ -22,6 +22,7 @@ public abstract class NodeBaseTest
 
         handlerManager.Register(new CreateDeformerNodeCommandHandler());
         handlerManager.Register(new SelectNodeCommandHandler());
+        handlerManager.Register(new DeleteNodeCommandHandler());
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
     }
