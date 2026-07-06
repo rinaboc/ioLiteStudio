@@ -13,18 +13,19 @@ public abstract class ParameterBaseTest
     public void OnetimeSetup()
     {
         _dummyContext = new DummyContext();
-        _dispatcher = new Dispatcher(_dummyContext);
+        IHandlerManager handlerManager = new HandlerManager();
+        _dispatcher = new Dispatcher(_dummyContext, handlerManager);
 
         ServiceLocator.Register<IUndoService>(new UndoService(20));
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
         ServiceLocator.Register<ILogService>(new LogService());
 
-        _dispatcher.RegisterHandler(new CreateParameterCommandHandler());
-        _dispatcher.RegisterHandler(new DeleteParameterCommandHandler());
-        _dispatcher.RegisterHandler(new SelectParameterCommandHandler());
-        _dispatcher.RegisterHandler(new EditParameterCommandHandler());
-        _dispatcher.RegisterHandler(new UndoCommandHandler());
-        _dispatcher.RegisterHandler(new RedoCommandHandler());
+        handlerManager.Register(new CreateParameterCommandHandler());
+        handlerManager.Register(new DeleteParameterCommandHandler());
+        handlerManager.Register(new SelectParameterCommandHandler());
+        handlerManager.Register(new EditParameterCommandHandler());
+        handlerManager.Register(new UndoCommandHandler());
+        handlerManager.Register(new RedoCommandHandler());
     }
 
     [SetUp]

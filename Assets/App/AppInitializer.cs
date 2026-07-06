@@ -23,9 +23,12 @@ public class AppInitializer : MonoBehaviour
             new DefaultSession()
         );
 
-        _dispatcher = new LogDispatcher(new Dispatcher(_context));
+        IHandlerManager handlerManager = new HandlerManager();
+
+        _dispatcher = new LogDispatcher(new Dispatcher(_context, handlerManager));
+
         RegisterServices();
-        RegisterHandlers();
+        RegisterHandlers(handlerManager);
         CreateViewModels();
     }
 
@@ -50,10 +53,10 @@ public class AppInitializer : MonoBehaviour
         ServiceLocator.Register<IKeyManager>(new KeyManager());
     }
 
-    void RegisterHandlers()
+    void RegisterHandlers(IHandlerManager handlerManager)
     {
-        _dispatcher.RegisterHandler(new UndoCommandHandler());
-        _dispatcher.RegisterHandler(new RedoCommandHandler());
+        handlerManager.Register(new UndoCommandHandler());
+        handlerManager.Register(new RedoCommandHandler());
     }
 
     void Update()

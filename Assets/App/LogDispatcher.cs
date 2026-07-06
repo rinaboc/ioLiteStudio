@@ -1,6 +1,5 @@
 using System;
 using Core.Domain;
-using Core.Services;
 
 public class LogDispatcher : IDispatcher
 {
@@ -30,15 +29,5 @@ public class LogDispatcher : IDispatcher
     {
         ServiceLocator.Get<ILogService>().LogInfo("[INTENT] Intent received", intent);
         _dispatcher.Dispatch(intent);
-    }
-
-    public void RegisterHandler<TIntent>(ICommandHandler<TIntent> handler) where TIntent : IIntent
-    {
-        _dispatcher.RegisterHandler(handler);
-    }
-
-    public void RegisterHandler<TIntent>(IAsyncCommandHandler<TIntent> handler) where TIntent : IIntent
-    {
-        _dispatcher.RegisterHandler(handler);
     }
 }
