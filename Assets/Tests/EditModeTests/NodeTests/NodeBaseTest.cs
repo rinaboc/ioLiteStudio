@@ -21,6 +21,7 @@ public abstract class NodeBaseTest
         ServiceLocator.Register<IKeyManager>(new KeyManager());
 
         handlerManager.Register(new CreateDeformerNodeCommandHandler());
+        handlerManager.Register(new SelectNodeCommandHandler());
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
     }
