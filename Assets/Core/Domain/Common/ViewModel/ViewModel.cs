@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Domain
 {
-    public abstract class ViewModel<TState> : IViewModel<TState>, IDisposable
+    public class ViewModel<TState> : IViewModel<TState>, IDisposable
     {
         protected IStore<TState> _store;
         protected IDispatcher _dispatcher;
