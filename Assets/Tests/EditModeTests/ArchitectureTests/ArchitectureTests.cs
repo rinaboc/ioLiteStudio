@@ -14,19 +14,20 @@ public class ArchitectureTests
     public void OneTimeSetup()
     {
         _dummyContext = new DummyContext();
-        _dispatcher = new Dispatcher(_dummyContext);
+        IHandlerManager handlerManager = new HandlerManager();
+        _dispatcher = new Dispatcher(_dummyContext, handlerManager);
 
         ServiceLocator.Register<IUndoService>(new UndoService(20));
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
 
-        _dispatcher.RegisterHandler(new UndoableIntentCommandHandler());
-        _dispatcher.RegisterHandler(new NonUndoableIntentCommandHandler());
+        handlerManager.Register(new UndoableIntentCommandHandler());
+        handlerManager.Register(new NonUndoableIntentCommandHandler());
 
-        _dispatcher.RegisterHandler(new AsyncUndoableIntentCommandHandler());
-        _dispatcher.RegisterHandler(new AsyncNonUndoableIntentCommandHandler());
+        handlerManager.Register(new AsyncUndoableIntentCommandHandler());
+        handlerManager.Register(new AsyncNonUndoableIntentCommandHandler());
 
-        _dispatcher.RegisterHandler(new UndoCommandHandler());
-        _dispatcher.RegisterHandler(new RedoCommandHandler());
+        handlerManager.Register(new UndoCommandHandler());
+        handlerManager.Register(new RedoCommandHandler());
     }
 
     [SetUp]
