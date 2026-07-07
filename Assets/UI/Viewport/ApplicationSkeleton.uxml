@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Base" style="flex-grow: 1; flex-direction: row; background-color: rgb(192, 192, 192);">
+        <ui:VisualElement name="Sidebar" style="flex-grow: 0.2; background-color: rgb(87, 87, 87);"/>
+        <ui:VisualElement name="Vertical" style="flex-grow: 1;">
+            <ui:VisualElement name="Topbar" style="flex-grow: 0.1; background-color: rgb(149, 149, 149);"/>
+            <ui:VisualElement name="Viewport" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/Viewport_Render_Texture.renderTexture?fileID=8400000&amp;guid=52d92df60afdb864b8cbbbe88f41053a&amp;type=2#Viewport_Render_Texture&quot;); -unity-background-scale-mode: scale-and-crop;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
