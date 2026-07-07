@@ -5,8 +5,8 @@ namespace Core.Domain
 {
     public record MeshNodeConfig(
         NodeConfig NodeConfig,
-        Texture2D Tex,
-        int LayerOrder,
+        string TexPath,
+        int? LayerOrder,
         MeshInfo DefaultMesh
     );
 }

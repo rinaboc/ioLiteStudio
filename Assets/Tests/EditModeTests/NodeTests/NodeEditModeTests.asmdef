@@ -9,7 +9,8 @@
         "ioLite.Core.Services",
         "ioLite.Core.Data",
         "ioLite.App",
-        "EditModeTests"
+        "EditModeTests",
+        "Textures"
     ],
     "includePlatforms": [
         "Editor"

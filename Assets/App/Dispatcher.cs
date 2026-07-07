@@ -29,7 +29,7 @@ public class Dispatcher : IDispatcher
     {
         if (_handlerManager.TryGetAsyncHandler<TIntent>(out var asyncHandler))
         {
-            ServiceLocator.Get<IThreadPoolService>()?.Post(async () =>
+            ServiceLocator.Get<IThreadPoolService>().Post(async () =>
             {
                 var result = await asyncHandler.Execute(intent, _context);
                 _resultQueue.Enqueue((intent, result));

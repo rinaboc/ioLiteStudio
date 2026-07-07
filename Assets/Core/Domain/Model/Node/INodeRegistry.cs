@@ -6,5 +6,6 @@ namespace Core.Domain
     {
         IReadOnlyCollection<int> GetChildGraph(int parentId);
         IReadOnlyCollection<int> GetChildren(int parentId);
+        int HighestLayerOrder();
     }
 }

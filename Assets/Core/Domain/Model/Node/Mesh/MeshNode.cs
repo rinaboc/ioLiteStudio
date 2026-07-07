@@ -7,6 +7,7 @@ namespace Core.Domain
     {
         public override NodeType Type => NodeType.Mesh;
         public Texture2D Tex;
+        private string TexPath;
         public int LayerOrder;
         public MeshInfo DefaultMesh = new();
         public Dictionary<int, Vector2> VertexOffsets = new();
@@ -22,13 +23,13 @@ namespace Core.Domain
         {
             get
             {
-                return new MeshNodeConfig(NodeConfig, Tex, LayerOrder, DefaultMesh);
+                return new MeshNodeConfig(NodeConfig, TexPath, LayerOrder, DefaultMesh);
             }
             set
             {
                 NodeConfig = value.NodeConfig;
-                Tex = value.Tex;
-                LayerOrder = value.LayerOrder;
+                TexPath = value.TexPath;
+                LayerOrder = value.LayerOrder ?? -1;
                 DefaultMesh = value.DefaultMesh;
             }
         }

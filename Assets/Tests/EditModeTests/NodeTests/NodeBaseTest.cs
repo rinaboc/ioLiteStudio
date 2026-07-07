@@ -19,8 +19,10 @@ public abstract class NodeBaseTest
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
         ServiceLocator.Register<ILogService>(new LogService());
         ServiceLocator.Register<IKeyManager>(new KeyManager());
+        ServiceLocator.Register<IImageService>(new ImageService());
 
         handlerManager.Register(new CreateDeformerNodeCommandHandler());
+        handlerManager.Register(new CreateMeshNodeCommandHandler());
         handlerManager.Register(new SelectNodeCommandHandler());
         handlerManager.Register(new DeleteNodeCommandHandler());
         handlerManager.Register(new UndoCommandHandler());
