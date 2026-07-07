@@ -11,8 +11,7 @@ public class CreateDeformerNodeTests : NodeBaseTest
     {
         var nodeCount = _dummyContext.Nodes.Count();
 
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -32,8 +31,7 @@ public class CreateDeformerNodeTests : NodeBaseTest
 
         for (int i = 0; i < 100; i++)
         {
-            var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-            var nodeConfig = new NodeConfig("Deformer" + i, transform);
+            var nodeConfig = new NodeConfig("Deformer" + i);
             var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
             _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -47,8 +45,7 @@ public class CreateDeformerNodeTests : NodeBaseTest
     {
         var nodeCount = _dummyContext.Nodes.Count();
 
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -62,8 +59,7 @@ public class CreateDeformerNodeTests : NodeBaseTest
     {
         var nodeCount = _dummyContext.Nodes.Count();
 
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -76,8 +72,7 @@ public class CreateDeformerNodeTests : NodeBaseTest
     [Test]
     public void When_NodeIsSelectedAndCreateNode_Then_CreatedNodeIsChildOfSelected()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var parentConfig = new NodeConfig("Parent", transform);
+        var parentConfig = new NodeConfig("Parent");
         var parentDeformerConfig = new DeformerNodeConfig(parentConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(parentDeformerConfig));
@@ -86,7 +81,7 @@ public class CreateDeformerNodeTests : NodeBaseTest
         var session = _dummyContext.CurrentSession as DefaultSession;
         session.SelectedNodeId = parentNode.Id;
 
-        var childConfig = new NodeConfig("Child", transform);
+        var childConfig = new NodeConfig("Child");
         var childDeformerConfig = new DeformerNodeConfig(childConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(childDeformerConfig));

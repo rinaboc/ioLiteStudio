@@ -9,8 +9,7 @@ public class DeleteNodeTests : NodeBaseTest
     [Test]
     public void When_DeleteNode_Then_NodeRemoved()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -26,8 +25,7 @@ public class DeleteNodeTests : NodeBaseTest
     [Test]
     public void When_DeleteNodeAndUndo_Then_NodeRestored()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -44,8 +42,7 @@ public class DeleteNodeTests : NodeBaseTest
     [Test]
     public void When_UndoDeleteAndRedo_Then_NodeRemoved()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -63,8 +60,7 @@ public class DeleteNodeTests : NodeBaseTest
     [Test]
     public void When_DeleteSelectedNode_Then_SelectionCleared()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -80,24 +76,22 @@ public class DeleteNodeTests : NodeBaseTest
     [Test]
     public void When_DeleteNodeWithChildren_Then_ChildrenReparentToParentParent()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-
         // create grandparent
-        var grandConfig = new NodeConfig("Grandparent", transform);
+        var grandConfig = new NodeConfig("Grandparent");
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(grandConfig)));
         var grand = _dummyContext.Nodes.GetAll().First(n => n.Name == "Grandparent");
 
         // create parent under grandparent
         var session = _dummyContext.CurrentSession as DefaultSession;
         session.SelectedNodeId = grand.Id;
-        _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(new NodeConfig("Parent", transform))));
+        _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(new NodeConfig("Parent"))));
         var parent = _dummyContext.Nodes.GetAll().First(n => n.Name == "Parent");
 
         // create children under parent
         session.SelectedNodeId = parent.Id;
         for (int i = 0; i < 3; i++)
         {
-            _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(new NodeConfig("Child" + i, transform))));
+            _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(new NodeConfig("Child" + i))));
         }
 
         var childrenBefore = _dummyContext.Nodes.GetAll().Where(n => n.Name.StartsWith("Child")).ToArray();

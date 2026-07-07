@@ -12,8 +12,7 @@ public class CreateMeshNodeTests : NodeBaseTest
     {
         var nodeCount = _dummyContext.Nodes.Count();
 
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Mesh", transform);
+        var nodeConfig = new NodeConfig("Mesh");
         var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", 0, new MeshInfo());
 
         _dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
@@ -33,8 +32,7 @@ public class CreateMeshNodeTests : NodeBaseTest
 
         for (int i = 0; i < 5; i++)
         {
-            var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-            var nodeConfig = new NodeConfig("Mesh" + i, transform);
+            var nodeConfig = new NodeConfig("Mesh" + i);
             var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", i, new MeshInfo());
 
             _dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
@@ -48,8 +46,7 @@ public class CreateMeshNodeTests : NodeBaseTest
     {
         var nodeCount = _dummyContext.Nodes.Count();
 
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Mesh", transform);
+        var nodeConfig = new NodeConfig("Mesh");
         var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", 0, new MeshInfo());
 
         _dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
@@ -63,8 +60,7 @@ public class CreateMeshNodeTests : NodeBaseTest
     {
         var nodeCount = _dummyContext.Nodes.Count();
 
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Mesh", transform);
+        var nodeConfig = new NodeConfig("Mesh");
         var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", 0, new MeshInfo());
 
         _dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
@@ -77,8 +73,7 @@ public class CreateMeshNodeTests : NodeBaseTest
     [Test]
     public void When_NodeIsSelectedAndCreateMeshNode_Then_CreatedNodeIsChildOfSelected()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var parentConfig = new NodeConfig("Parent", transform);
+        var parentConfig = new NodeConfig("Parent");
         var parentDeformerConfig = new DeformerNodeConfig(parentConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(parentDeformerConfig));
@@ -87,7 +82,7 @@ public class CreateMeshNodeTests : NodeBaseTest
         var session = _dummyContext.CurrentSession as DefaultSession;
         session.SelectedNodeId = parentNode.Id;
 
-        var childConfig = new NodeConfig("MeshChild", transform);
+        var childConfig = new NodeConfig("MeshChild");
         var childMeshConfig = new MeshNodeConfig(childConfig, "Assets/Textures/test.png", 0, new MeshInfo());
 
         _dispatcher.Dispatch(new CreateMeshNodeIntent(childMeshConfig));

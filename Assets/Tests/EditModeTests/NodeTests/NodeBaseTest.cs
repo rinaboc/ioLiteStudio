@@ -25,6 +25,7 @@ public abstract class NodeBaseTest
         handlerManager.Register(new CreateMeshNodeCommandHandler());
         handlerManager.Register(new SelectNodeCommandHandler());
         handlerManager.Register(new DeleteNodeCommandHandler());
+        handlerManager.Register(new ToggleVisibilityCommandHandler());
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
     }

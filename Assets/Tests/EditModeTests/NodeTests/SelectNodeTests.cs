@@ -9,8 +9,7 @@ public class SelectNodeTests : NodeBaseTest
     [Test]
     public void When_SelectNode_Then_NodeSelected()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
@@ -24,9 +23,8 @@ public class SelectNodeTests : NodeBaseTest
     [Test]
     public void When_SelectNodeAndUndo_Then_PreviousSelectionRestored()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var firstConfig = new NodeConfig("First", transform);
-        var secondConfig = new NodeConfig("Second", transform);
+        var firstConfig = new NodeConfig("First");
+        var secondConfig = new NodeConfig("Second");
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(firstConfig)));
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(secondConfig)));
@@ -44,9 +42,8 @@ public class SelectNodeTests : NodeBaseTest
     [Test]
     public void When_UndoSelectAndRedo_Then_NodeSelected()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var firstConfig = new NodeConfig("First", transform);
-        var secondConfig = new NodeConfig("Second", transform);
+        var firstConfig = new NodeConfig("First");
+        var secondConfig = new NodeConfig("Second");
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(firstConfig)));
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(new DeformerNodeConfig(secondConfig)));
@@ -65,8 +62,7 @@ public class SelectNodeTests : NodeBaseTest
     [Test]
     public void When_SelectNull_Then_NodeDeselected()
     {
-        var transform = new Transform2D { Position = Vector2.Zero, Rotation = Quaternion.Identity, Scale = Vector2.One };
-        var nodeConfig = new NodeConfig("Deformer", transform);
+        var nodeConfig = new NodeConfig("Deformer");
         var deformerConfig = new DeformerNodeConfig(nodeConfig);
 
         _dispatcher.Dispatch(new CreateDeformerNodeIntent(deformerConfig));
