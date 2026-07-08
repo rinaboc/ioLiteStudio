@@ -32,11 +32,13 @@ namespace Core.Features
             void mutation()
             {
                 context.Nodes.Register(meshNode.Id, meshNode);
+                ServiceLocator.Get<INodeObjectManager>().Instantiate(meshNode, out var meshObject);
             }
 
             void revert()
             {
                 context.Nodes.Remove(meshNode.Id, out _);
+                ServiceLocator.Get<INodeObjectManager>().Destroy(meshNode.Id);
             }
 
             return new CommandResult(

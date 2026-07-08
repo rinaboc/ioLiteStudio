@@ -11,7 +11,6 @@ public class AppInitializer : MonoBehaviour
 
     void Awake()
     {
-
         _context = new AppContext(
             new NodeRegistry(),
             new ParameterRegistry(),
@@ -30,6 +29,12 @@ public class AppInitializer : MonoBehaviour
         RegisterServices();
         RegisterHandlers(handlerManager);
         CreateViewModels();
+    }
+
+    void Start()
+    {
+        _dispatcher.Dispatch(new CreateMeshNodeIntent(new MeshNodeConfig(new NodeConfig("test"), "Assets/Textures/test.png", 1, new MeshInfo())));
+        _dispatcher.Dispatch(new CreateMeshNodeIntent(new MeshNodeConfig(new NodeConfig("test2"), "Assets/Textures/test2.png", 1, new MeshInfo())));
     }
 
     private void CreateViewModels()
@@ -51,12 +56,15 @@ public class AppInitializer : MonoBehaviour
         ServiceLocator.Register<IUndoService>(new UndoService(40));
         ServiceLocator.Register<IViewModelManager>(new ViewModelManager(_dispatcher));
         ServiceLocator.Register<IKeyManager>(new KeyManager());
+        ServiceLocator.Register<INodeObjectManager>(gameObject.GetComponentInChildren<NodeObjectManager>());
+        ServiceLocator.Register<IImageService>(new ImageService());
     }
 
     void RegisterHandlers(IHandlerManager handlerManager)
     {
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
+        handlerManager.Register(new CreateMeshNodeCommandHandler());
     }
 
     void Update()
