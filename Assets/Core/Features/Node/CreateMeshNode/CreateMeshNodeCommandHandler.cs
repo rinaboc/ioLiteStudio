@@ -29,16 +29,27 @@ namespace Core.Features
             if (session.SelectedNodeId != null && context.Nodes.TryGet((int)session.SelectedNodeId, out var selectedNode))
                 meshNode.ParentId = selectedNode.Type == NodeType.Deformer ? selectedNode.Id : null;
 
+            IViewModel<MeshNodeUIState> viewModel = null;
+
             void mutation()
             {
                 context.Nodes.Register(meshNode.Id, meshNode);
                 ServiceLocator.Get<INodeObjectManager>().Instantiate(meshNode, out var meshObject);
+
+                viewModel = ServiceLocator.Get<IViewModelManager>().Create(
+                    meshNode.ToMeshNodeUIState(),
+                    (s, dispatcher) => new MeshNodeStore(s, dispatcher, meshNode.Id),
+                    (s, dispatcher) => new ViewModel<MeshNodeUIState>(s, dispatcher)
+                );
+
+                viewModel.Bind(new MeshNodeView(viewModel, meshObject));
             }
 
             void revert()
             {
                 context.Nodes.Remove(meshNode.Id, out _);
                 ServiceLocator.Get<INodeObjectManager>().Destroy(meshNode.Id);
+                ServiceLocator.Get<IViewModelManager>().Destroy(viewModel);
             }
 
             return new CommandResult(

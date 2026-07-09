@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 
 namespace Core.Domain
 {
-    public class ViewModel<TState> : IViewModel<TState>, IDisposable
+    public class ViewModel<TState> : IViewModel<TState>
     {
         protected IStore<TState> _store;
         protected IDispatcher _dispatcher;
@@ -44,15 +43,22 @@ namespace Core.Domain
 
         public void Dispose()
         {
-            _views.Clear();
             _store.StateChanged -= OnStateChanged;
+            _store.Dispose();
+            _store = null;
+
+            foreach (var view in _views.ToArray()) Unbind(view);
+            _views.Clear();
+
+            ServiceLocator.Get<ILogService>().LogInfo("[VIEWMODEL] Instance has been disposed.");
         }
 
         public void Unbind(IView<TState> view)
         {
             if (!_views.Remove(view))
-                ServiceLocator.Get<ILogService>().LogError($"[VIEWMODEL] Coundn't unbind view of type {view.GetType()}");
+                ServiceLocator.Get<ILogService>().LogError($"[VIEWMODEL] Couldn't unbind view of type {view.GetType()}");
 
+            view.Dispose();
         }
     }
 }

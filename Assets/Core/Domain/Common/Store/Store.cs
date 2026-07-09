@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.Domain
 {
-    public abstract class Store<TState> : IStore<TState>, IDisposable
+    public abstract class Store<TState> : IStore<TState>
     {
         private TState _state;
         private IDispatcher _dispatcher;
@@ -38,6 +38,7 @@ namespace Core.Domain
         public void Dispose()
         {
             _dispatcher.ContextMutated -= OnContextMutated;
+            ServiceLocator.Get<ILogService>().LogInfo("[STORE] Instance was disposed.");
         }
     }
 }

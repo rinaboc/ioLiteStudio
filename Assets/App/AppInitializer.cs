@@ -31,12 +31,6 @@ public class AppInitializer : MonoBehaviour
         CreateViewModels();
     }
 
-    void Start()
-    {
-        _dispatcher.Dispatch(new CreateMeshNodeIntent(new MeshNodeConfig(new NodeConfig("test"), "Assets/Textures/test.png", 1, new MeshInfo())));
-        _dispatcher.Dispatch(new CreateMeshNodeIntent(new MeshNodeConfig(new NodeConfig("test2"), "Assets/Textures/test2.png", 1, new MeshInfo())));
-    }
-
     private void CreateViewModels()
     {
         var manager = ServiceLocator.Get<IViewModelManager>();

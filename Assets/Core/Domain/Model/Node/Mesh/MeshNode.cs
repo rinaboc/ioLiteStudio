@@ -23,7 +23,7 @@ namespace Core.Domain
         {
             get
             {
-                return new MeshNodeConfig(NodeConfig, TexPath, LayerOrder, DefaultMesh);
+                return new MeshNodeConfig(NodeConfig, TexPath, DefaultMesh, LayerOrder);
             }
             set
             {
@@ -31,6 +31,12 @@ namespace Core.Domain
                 TexPath = value.TexPath;
                 LayerOrder = value.LayerOrder ?? -1;
                 DefaultMesh = value.DefaultMesh;
+                LocalTransform = new()
+                {
+                    Position = Vector2.zero,
+                    Scale = Vector2.zero,
+                    Rotation = Quaternion.identity
+                };
             }
         }
     }

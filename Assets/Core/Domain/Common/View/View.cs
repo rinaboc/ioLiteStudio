@@ -9,6 +9,11 @@ namespace Core.Domain
             _viewModel = viewModel;
         }
 
+        public void Dispose()
+        {
+            _viewModel = null;
+        }
+
         public abstract void Render(TState state);
     }
 }

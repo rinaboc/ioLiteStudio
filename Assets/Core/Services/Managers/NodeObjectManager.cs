@@ -10,6 +10,7 @@ namespace Core.Services
         bool Instantiate(MeshNode meshNode, out GameObject meshObject);
         bool Instantiate(DeformerNode deformerNode, out GameObject deformerObject);
         void Destroy(params int[] IDs);
+        void Configure(Material meshMaterial, Transform sceneRoot);
     }
 
     public class NodeObjectManager : MonoBehaviour, INodeObjectManager
@@ -18,6 +19,12 @@ namespace Core.Services
         [SerializeField] private Transform _sceneRoot;
 
         private Dictionary<int, GameObject> _nodeObjects = new();
+
+        public void Configure(Material meshMaterial, Transform sceneRoot)
+        {
+            _meshMaterial = meshMaterial;
+            _sceneRoot = sceneRoot;
+        }
 
         void Awake()
         {
@@ -32,7 +39,11 @@ namespace Core.Services
                 if (!_nodeObjects.TryGetValue(id, out var nodeObject)) continue;
 
                 _nodeObjects.Remove(id);
+#if UNITY_EDITOR
+                DestroyImmediate(nodeObject);
+#else
                 Destroy(nodeObject);
+#endif
             }
         }
 

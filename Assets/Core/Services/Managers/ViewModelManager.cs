@@ -8,10 +8,7 @@ namespace Core.Services
 {
     public interface IViewModelManager
     {
-        void Create<TState>(
-            IStore<TState> store,
-            Func<IStore<TState>, IDispatcher, IViewModel<TState>> factory);
-        void Create<TState>(
+        IViewModel<TState> Create<TState>(
             TState state,
             Func<TState, IDispatcher, IStore<TState>> storeFactory,
             Func<IStore<TState>, IDispatcher, IViewModel<TState>> factory);
@@ -29,18 +26,7 @@ namespace Core.Services
             _dispatcher = dispatcher;
         }
 
-        public void Create<TState>(IStore<TState> store,
-                        Func<IStore<TState>, IDispatcher, IViewModel<TState>> factory)
-        {
-            var viewModel = factory(store, _dispatcher);
-
-            if (!_viewModels.ContainsKey(typeof(TState)))
-                _viewModels[typeof(TState)] = new();
-
-            _viewModels[typeof(TState)].Add(viewModel);
-        }
-
-        public void Create<TState>(TState state, Func<TState, IDispatcher, IStore<TState>> storeFactory,
+        public IViewModel<TState> Create<TState>(TState state, Func<TState, IDispatcher, IStore<TState>> storeFactory,
                         Func<IStore<TState>, IDispatcher, IViewModel<TState>> factory)
         {
             var store = storeFactory(state, _dispatcher);
@@ -50,12 +36,15 @@ namespace Core.Services
                 _viewModels[typeof(TState)] = new();
 
             _viewModels[typeof(TState)].Add(viewModel);
+            return viewModel;
         }
 
         public void Destroy<TState>(IViewModel<TState> viewModel)
         {
             if (_viewModels[typeof(TState)].Remove(viewModel))
             {
+                viewModel.Dispose();
+
                 ServiceLocator.Get<ILogService>()
                     .LogInfo($"[VIEWMODEL_MANAGER] Removed a copy of {typeof(TState).Name} ViewModel");
             }

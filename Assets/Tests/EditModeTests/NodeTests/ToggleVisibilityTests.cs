@@ -10,7 +10,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 	public void When_ToggleVisibility_Then_NodeBecomesHidden()
 	{
 		var nodeConfig = new NodeConfig("Mesh");
-		var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", 0, new MeshInfo());
+		var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", new MeshInfo());
 
 		_dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
 
@@ -27,7 +27,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 	public void When_ToggleVisibilityTwice_Then_VisibilityRestored()
 	{
 		var nodeConfig = new NodeConfig("Mesh");
-		var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", 0, new MeshInfo());
+		var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", new MeshInfo());
 
 		_dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
 
@@ -54,7 +54,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 		session.SelectedNodeId = parentNode.Id;
 
 		var childConfig = new NodeConfig("MeshChild");
-		var childMeshConfig = new MeshNodeConfig(childConfig, "Assets/Textures/test.png", 0, new MeshInfo());
+		var childMeshConfig = new MeshNodeConfig(childConfig, "Assets/Textures/test.png", new MeshInfo());
 
 		_dispatcher.Dispatch(new CreateMeshNodeIntent(childMeshConfig));
 
@@ -73,7 +73,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 	public void When_ToggleVisibility_Then_UndoRedoRestoresState()
 	{
 		var nodeConfig = new NodeConfig("Mesh");
-		var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", 0, new MeshInfo());
+		var meshConfig = new MeshNodeConfig(nodeConfig, "Assets/Textures/test.png", new MeshInfo());
 
 		_dispatcher.Dispatch(new CreateMeshNodeIntent(meshConfig));
 
