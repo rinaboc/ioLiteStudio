@@ -9,7 +9,7 @@ namespace Core.Domain
             _viewModel = viewModel;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _viewModel = null;
         }

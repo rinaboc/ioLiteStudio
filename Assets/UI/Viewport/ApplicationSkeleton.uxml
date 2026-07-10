@@ -1,8 +1,15 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIToolkit/GeneralStyles.uss?fileID=7433441132597879392&amp;guid=2b43bc268b1dc5a4bb52996b43333856&amp;type=3#GeneralStyles"/>
     <ui:VisualElement name="Base" style="flex-grow: 1; flex-direction: row; background-color: rgb(192, 192, 192);">
         <ui:VisualElement name="Sidebar" style="flex-grow: 0.2; background-color: rgb(87, 87, 87);"/>
         <ui:VisualElement name="Vertical" style="flex-grow: 1;">
-            <ui:VisualElement name="Topbar" style="flex-grow: 0.1; background-color: rgb(149, 149, 149);"/>
+            <ui:VisualElement name="TopBar" style="background-color: rgb(149, 149, 149); flex-direction: row;">
+                <ui:VisualElement name="WorkspaceActions" style="flex-grow: 1; flex-direction: row;"/>
+                <ui:VisualElement name="UndoContainer" style="flex-direction: row; justify-content: flex-end; align-self: center;">
+                    <ui:Button text="" name="UndoBtn" class="icon-button" style="background-image: url(&quot;project://database/Assets/Textures/undo.png?fileID=2800000&amp;guid=7805e25bba48a864e864ee9ce07fd489&amp;type=3#undo&quot;);"/>
+                    <ui:Button text="" name="RedoBtn" class="icon-button" style="background-image: url(&quot;project://database/Assets/Textures/redo.png?fileID=2800000&amp;guid=61c128dd1e5182a45ae20c84b9c0cd86&amp;type=3#redo&quot;);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
             <ui:VisualElement name="Viewport" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/Viewport_Render_Texture.renderTexture?fileID=8400000&amp;guid=52d92df60afdb864b8cbbbe88f41053a&amp;type=2#Viewport_Render_Texture&quot;); -unity-background-scale-mode: scale-and-crop;"/>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -31,6 +31,12 @@ public class AppInitializer : MonoBehaviour
         CreateViewModels();
     }
 
+    void Start()
+    {
+        gameObject.GetComponentInChildren<UIManager>().InitializeViews();
+        _dispatcher.Dispatch(new CreateMeshNodeIntent(new MeshNodeConfig(new NodeConfig("test", DefaultTransform: Transform2D.Default), "Assets/Textures/test.png", new MeshInfo())));
+    }
+
     private void CreateViewModels()
     {
         var manager = ServiceLocator.Get<IViewModelManager>();
@@ -40,6 +46,12 @@ public class AppInitializer : MonoBehaviour
             paramState,
             (s, dispatcher) => new ParameterStore(s, dispatcher),
             (s, dispatcher) => new ViewModel<ParameterUIState>(s, dispatcher)
+        );
+
+        manager.Create(
+            new TopBarUIState(),
+            (s, dispatcher) => new TopBarStore(s, dispatcher),
+            (s, dispatcher) => new ViewModel<TopBarUIState>(s, dispatcher)
         );
     }
 

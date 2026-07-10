@@ -24,6 +24,13 @@ namespace Core.Domain
 
         private void OnContextMutated(ContextMutationResult result)
         {
+            if (ObservedMutations.Contains(ContextMutationType.DEFAULT))
+            {
+                _state = Build(_dispatcher.Context);
+                StateChanged?.Invoke(_state);
+                return;
+            }
+
             foreach (var mutation in result.ContextMutations)
             {
                 if (ObservedMutations.Contains(mutation))
