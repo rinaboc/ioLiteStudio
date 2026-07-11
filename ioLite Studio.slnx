@@ -9,4 +9,6 @@
   <Project Path="ParameterEditModeTests.csproj" />
   <Project Path="Serilog.Sinks.Unity3D.csproj" />
   <Project Path="PlayModeTests.csproj" />
+  <Project Path="ioLite.UI.Viewport.csproj" />
+  <Project Path="ioLite.UI.UIToolkit.csproj" />
 </Solution>

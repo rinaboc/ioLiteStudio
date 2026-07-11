@@ -6,5 +6,6 @@ namespace Core.Domain
         void Bind(IView<TState> view);
         void Unbind(IView<TState> view);
         void Dispose();
+        TState State { get; }
     }
 }

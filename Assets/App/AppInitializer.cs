@@ -64,6 +64,7 @@ public class AppInitializer : MonoBehaviour
         ServiceLocator.Register<IKeyManager>(new KeyManager());
         ServiceLocator.Register<INodeObjectManager>(gameObject.GetComponentInChildren<NodeObjectManager>());
         ServiceLocator.Register<IImageService>(new ImageService());
+        ServiceLocator.Register<IViewFactory>(new ViewFactory());
     }
 
     void RegisterHandlers(IHandlerManager handlerManager)

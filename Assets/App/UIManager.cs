@@ -1,38 +1,37 @@
 using Core.Features;
+using Core.Services;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Core.Services
+public interface IUIManager
 {
-    public interface IUIManager
+    void InitializeViews();
+}
+
+public class UIManager : MonoBehaviour, IUIManager
+{
+    [SerializeField] private PanelRenderer _panelRenderer;
+
+    public void InitializeViews()
     {
-        void InitializeViews();
+        _panelRenderer.RegisterUIReloadCallback(OnUIReload);
     }
 
-    public class UIManager : MonoBehaviour, IUIManager
+    void Awake()
     {
-        [SerializeField] private PanelRenderer _panelRenderer;
+        Assert.NotNull(_panelRenderer);
+    }
 
-        public void InitializeViews()
+    private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement)
+    {
+        var viewModelManager = ServiceLocator.Get<IViewModelManager>();
+
+        if (viewModelManager.TryGet<TopBarUIState>(out var topBarViewmodel))
         {
-            _panelRenderer.RegisterUIReloadCallback(OnUIReload);
-        }
-
-        void Awake()
-        {
-            Assert.NotNull(_panelRenderer);
-        }
-
-        private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement)
-        {
-            var viewModelManager = ServiceLocator.Get<IViewModelManager>();
-
-            if (viewModelManager.TryGet<TopBarUIState>(out var topBarViewmodel))
-            {
-                var viewModel = topBarViewmodel[0];
-                viewModel.Bind(new TopBarView(viewModel, rootElement.Q<VisualElement>("TopBar")));
-            }
+            var viewModel = topBarViewmodel[0];
+            viewModel.Bind(new TopBarView(viewModel, rootElement.Q<VisualElement>("TopBar")));
         }
     }
 }
+

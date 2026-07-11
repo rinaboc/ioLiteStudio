@@ -6,5 +6,6 @@ namespace Core.Domain
     {
         event Action<TState> StateChanged;
         void Dispose();
+        TState State { get; }
     }
 }

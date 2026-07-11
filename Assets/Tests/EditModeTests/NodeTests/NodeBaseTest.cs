@@ -25,6 +25,7 @@ public abstract class NodeBaseTest
         ServiceLocator.Register<IKeyManager>(new KeyManager());
         ServiceLocator.Register<IImageService>(new ImageService());
         ServiceLocator.Register<IViewModelManager>(new ViewModelManager(_dispatcher));
+        ServiceLocator.Register<IViewFactory>(new ViewFactory());
 
         handlerManager.Register(new CreateDeformerNodeCommandHandler());
         handlerManager.Register(new CreateMeshNodeCommandHandler());

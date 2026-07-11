@@ -10,6 +10,8 @@ namespace Core.Domain
 
         protected abstract ContextMutationType[] ObservedMutations { get; }
 
+        public TState State => _state;
+
         public event Action<TState> StateChanged;
 
         protected Store(TState state, IDispatcher dispatcher)

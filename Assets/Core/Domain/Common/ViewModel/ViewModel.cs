@@ -9,6 +9,8 @@ namespace Core.Domain
 
         private readonly List<IView<TState>> _views = new();
 
+        public TState State => _store.State;
+
         public ViewModel(IStore<TState> store, IDispatcher dispatcher)
         {
             _store = store;
