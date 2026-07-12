@@ -10,8 +10,7 @@ public class ViewFactory : IViewFactory
 
         IViewModel<MeshNodeUIState> viewModel = ServiceLocator.Get<IViewModelManager>().Create(
             meshNode.ToMeshNodeUIState(),
-            (s, dispatcher) => new MeshNodeStore(s, dispatcher, meshNode.Id),
-            (s, dispatcher) => new ViewModel<MeshNodeUIState>(s, dispatcher)
+            (s, dispatcher) => new MeshNodeStore(s, dispatcher, meshNode.Id)
         );
 
         viewModel.Bind(new MeshNodeView(viewModel, meshObject));

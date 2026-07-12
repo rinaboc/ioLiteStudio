@@ -44,14 +44,17 @@ public class AppInitializer : MonoBehaviour
         var paramState = new ParameterUIState();
         manager.Create(
             paramState,
-            (s, dispatcher) => new ParameterStore(s, dispatcher),
-            (s, dispatcher) => new ViewModel<ParameterUIState>(s, dispatcher)
+            (s, dispatcher) => new ParameterStore(s, dispatcher)
         );
 
         manager.Create(
             new TopBarUIState(),
-            (s, dispatcher) => new TopBarStore(s, dispatcher),
-            (s, dispatcher) => new ViewModel<TopBarUIState>(s, dispatcher)
+            (s, dispatcher) => new TopBarStore(s, dispatcher)
+        );
+
+        manager.Create(
+            new WindowUIState(false, WindowType.File),
+            (s, dispatcher) => new WindowStore(s, dispatcher)
         );
     }
 
@@ -72,6 +75,8 @@ public class AppInitializer : MonoBehaviour
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
         handlerManager.Register(new CreateMeshNodeCommandHandler());
+        handlerManager.Register(new OpenWindowCommandHandler());
+        handlerManager.Register(new CloseWindowCommandHandler());
     }
 
     void Update()

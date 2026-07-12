@@ -5,10 +5,10 @@
   <Project Path="EditModeTests.csproj" />
   <Project Path="ioLite.Core.Domain.csproj" />
   <Project Path="ioLite.Core.Services.csproj" />
+  <Project Path="ioLite.UI.UIToolkit.csproj" />
   <Project Path="NodeEditModeTests.csproj" />
   <Project Path="ParameterEditModeTests.csproj" />
   <Project Path="Serilog.Sinks.Unity3D.csproj" />
   <Project Path="PlayModeTests.csproj" />
   <Project Path="ioLite.UI.Viewport.csproj" />
-  <Project Path="ioLite.UI.UIToolkit.csproj" />
 </Solution>

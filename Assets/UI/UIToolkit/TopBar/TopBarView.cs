@@ -8,14 +8,17 @@ namespace Core.Features
     {
         private Button _undoButton;
         private Button _redoButton;
+        private Button _fileButton;
 
         public TopBarView(IViewModel<TopBarUIState> viewModel, VisualElement topBarElement) : base(viewModel)
         {
             _undoButton = topBarElement.Q<Button>("UndoBtn");
             _redoButton = topBarElement.Q<Button>("RedoBtn");
+            _fileButton = topBarElement.Q<Button>("FileBtn");
 
             _undoButton.clicked += OnUndoClicked;
             _redoButton.clicked += OnRedoClicked;
+            _fileButton.clicked += OnFileClicked;
         }
 
         public override void Dispose()
@@ -23,6 +26,12 @@ namespace Core.Features
             base.Dispose();
             _undoButton.clicked -= OnUndoClicked;
             _redoButton.clicked -= OnRedoClicked;
+            _fileButton.clicked -= OnFileClicked;
+        }
+
+        private void OnFileClicked()
+        {
+            _viewModel.Dispatch(new OpenWindowIntent(WindowType.File));
         }
 
         private void OnRedoClicked()

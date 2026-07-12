@@ -32,6 +32,12 @@ public class UIManager : MonoBehaviour, IUIManager
             var viewModel = topBarViewmodel[0];
             viewModel.Bind(new TopBarView(viewModel, rootElement.Q<VisualElement>("TopBar")));
         }
+
+        if (viewModelManager.TryGet<WindowUIState>(out var windowViewmodel))
+        {
+            var viewModel = windowViewmodel[0];
+            viewModel.Bind(new WindowView(viewModel, rootElement.Q<VisualElement>("PopupWindowBase")));
+        }
     }
 }
 

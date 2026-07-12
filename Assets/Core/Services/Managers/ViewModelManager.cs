@@ -10,8 +10,7 @@ namespace Core.Services
     {
         IViewModel<TState> Create<TState>(
             TState state,
-            Func<TState, IDispatcher, IStore<TState>> storeFactory,
-            Func<IStore<TState>, IDispatcher, IViewModel<TState>> factory);
+            Func<TState, IDispatcher, IStore<TState>> storeFactory);
         bool TryGet<TState>(out ReadOnlyCollection<IViewModel<TState>> viewModels);
         void Destroy<TState>(IViewModel<TState> viewModel);
     }
@@ -26,11 +25,10 @@ namespace Core.Services
             _dispatcher = dispatcher;
         }
 
-        public IViewModel<TState> Create<TState>(TState state, Func<TState, IDispatcher, IStore<TState>> storeFactory,
-                        Func<IStore<TState>, IDispatcher, IViewModel<TState>> factory)
+        public IViewModel<TState> Create<TState>(TState state, Func<TState, IDispatcher, IStore<TState>> storeFactory)
         {
             var store = storeFactory(state, _dispatcher);
-            var viewModel = factory(store, _dispatcher);
+            var viewModel = new ViewModel<TState>(store, _dispatcher);
 
             if (!_viewModels.ContainsKey(typeof(TState)))
                 _viewModels[typeof(TState)] = new();

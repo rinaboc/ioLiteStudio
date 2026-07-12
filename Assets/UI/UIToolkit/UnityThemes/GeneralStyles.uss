@@ -29,8 +29,10 @@ Button {
     border-bottom-left-radius: 10px;
 }
 
-
-
 .hide {
     display: none;
+}
+
+.panel {
+    flex-grow: 1;
 }
