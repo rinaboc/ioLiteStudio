@@ -13,7 +13,7 @@
     width: 100px;
     height: 100px;
     background-size: 70% 70%;
-    -unity-background-image-tint-color: rgb(229, 229, 229);
+    -unity-background-image-tint-color: rgb(128, 128, 128);
 }
 
 Button {
@@ -35,4 +35,27 @@ Button {
 
 .panel {
     flex-grow: 1;
+}
+
+.text-small {
+    font-size: 26px;
+    -unity-text-auto-size: best-fit 24px 26px;
+}
+
+.icon-button-small {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-size: 70% 70%;
+    -unity-background-image-tint-color: rgb(229, 229, 229);
+    width: 76px;
+    height: 76px;
+    min-width: 76px;
+    min-height: 76px;
+}
+
+#unity-checkmark {
+    width: 30px;
+    height: 30px;
+    -unity-background-image-tint-color: rgb(72, 61, 139);
+    background-color: rgb(128, 128, 128);
 }

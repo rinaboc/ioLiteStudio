@@ -38,6 +38,12 @@ public class UIManager : MonoBehaviour, IUIManager
             var viewModel = windowViewmodel[0];
             viewModel.Bind(new WindowView(viewModel, rootElement.Q<VisualElement>("PopupWindowBase")));
         }
+
+        if (viewModelManager.TryGet<NodeInspectorUIState>(out var nodeInspectorViewmodel))
+        {
+            var viewModel = nodeInspectorViewmodel[0];
+            viewModel.Bind(new NodeInspectorView(viewModel, rootElement.Q<VisualElement>("NodeInspector")));
+        }
     }
 }
 

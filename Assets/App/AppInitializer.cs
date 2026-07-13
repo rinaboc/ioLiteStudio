@@ -56,6 +56,11 @@ public class AppInitializer : MonoBehaviour
             new WindowUIState(false, WindowType.File),
             (s, dispatcher) => new WindowStore(s, dispatcher)
         );
+
+        manager.Create(
+            new NodeInspectorUIState(new NodeInspectorElement[] { }, null),
+            (s, dispatcher) => new NodeInspectorStore(s, dispatcher)
+        );
     }
 
     void RegisterServices()
