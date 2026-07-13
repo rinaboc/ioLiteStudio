@@ -3,6 +3,7 @@ using Core.Data;
 using UnityEngine;
 using Core.Services;
 using Core.Features;
+using System.Threading.Tasks;
 
 public class AppInitializer : MonoBehaviour
 {
@@ -29,12 +30,7 @@ public class AppInitializer : MonoBehaviour
         RegisterServices();
         RegisterHandlers(handlerManager);
         CreateViewModels();
-    }
-
-    void Start()
-    {
         gameObject.GetComponentInChildren<UIManager>().InitializeViews();
-        _dispatcher.Dispatch(new CreateMeshNodeIntent(new MeshNodeConfig(new NodeConfig("test", DefaultTransform: Transform2D.Default), "Assets/Textures/test.png", new MeshInfo())));
     }
 
     private void CreateViewModels()
@@ -80,6 +76,7 @@ public class AppInitializer : MonoBehaviour
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
         handlerManager.Register(new CreateMeshNodeCommandHandler());
+        handlerManager.Register(new CreateDeformerNodeCommandHandler());
         handlerManager.Register(new OpenWindowCommandHandler());
         handlerManager.Register(new CloseWindowCommandHandler());
     }

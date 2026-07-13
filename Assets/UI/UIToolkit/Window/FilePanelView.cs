@@ -4,18 +4,20 @@ using Core.Features;
 using UnityEngine.UIElements;
 
 [UxmlElement]
-public partial class FilePanelView : VisualElementView<WindowUIState>
+public partial class FilePanelView : WindowPanelView
 {
     private Button _newProjectButton;
     private Button _saveProjectButton;
     private Button _loadProjectButton;
-    private Label _windowTitle;
+
+    protected override WindowType PanelWindowType => WindowType.File;
+
+    protected override string PanelTitle => "File";
 
     public FilePanelView() { }
-    public FilePanelView(IViewModel<WindowUIState> viewModel, Label windowTitle) : base(viewModel)
+    public FilePanelView(IViewModel<WindowUIState> viewModel, Label windowTitle) : base(viewModel, windowTitle)
     {
         AddToClassList("panel");
-        _windowTitle = windowTitle;
 
         _newProjectButton = new Button(OnNewProjectClicked)
         {
@@ -58,18 +60,5 @@ public partial class FilePanelView : VisualElementView<WindowUIState>
     private void OnNewProjectClicked()
     {
         throw new NotImplementedException();
-    }
-
-    public override void Render(WindowUIState state)
-    {
-        if (state.WindowType == WindowType.File)
-        {
-            RemoveFromClassList("hide");
-            _windowTitle.text = "File";
-        }
-        else
-        {
-            AddToClassList("hide");
-        }
     }
 }

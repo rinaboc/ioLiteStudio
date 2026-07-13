@@ -9,8 +9,8 @@
                         <ui:Toggle label="" value="true" name="NodeInspectorToggle" style="width: 30px; height: 30px;"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="NodeCommands" style="flex-grow: 0; flex-direction: row; justify-content: flex-end; background-color: rgb(102, 102, 102);">
-                        <ui:Button text="+" name="AddNodeBtn" class="icon-button-small"/>
-                        <ui:Button text="x" name="DeleteNodeBtn" class="icon-button-small"/>
+                        <ui:Button text="" name="AddNodeBtn" class="icon-button-small" style="background-image: url(&quot;project://database/Assets/Textures/Icons/plus.png?fileID=2800000&amp;guid=3a250705a68412348acda7a3afeca8c1&amp;type=3#plus&quot;);"/>
+                        <ui:Button text="" name="DeleteNodeBtn" class="icon-button-small" style="background-image: url(&quot;project://database/Assets/Textures/Icons/trash.png?fileID=2800000&amp;guid=b716ebb3ff112474e9b98dd8b6511ba5&amp;type=3#trash&quot;); background-size: 80% 80%;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="NodeContainer" style="flex-grow: 1; padding-top: 0; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; background-color: rgb(77, 77, 77);">
@@ -24,8 +24,8 @@
                         <ui:Toggle label="" value="true" name="ParameterInspectorToggle" style="width: 30px; height: 30px;"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="ParameterCommands" style="flex-grow: 0; flex-direction: row; justify-content: flex-end; background-color: rgb(102, 102, 102);">
-                        <ui:Button text="+" name="AddParameterBtn" class="icon-button-small"/>
-                        <ui:Button text="x" name="DeleteParameterBtn" class="icon-button-small"/>
+                        <ui:Button text="" name="AddParameterBtn" class="icon-button-small" style="background-image: url(&quot;project://database/Assets/Textures/Icons/plus.png?fileID=2800000&amp;guid=3a250705a68412348acda7a3afeca8c1&amp;type=3#plus&quot;);"/>
+                        <ui:Button text="" name="DeleteParameterBtn" class="icon-button-small" style="background-image: url(&quot;project://database/Assets/Textures/Icons/trash.png?fileID=2800000&amp;guid=b716ebb3ff112474e9b98dd8b6511ba5&amp;type=3#trash&quot;); background-size: 80% 80%;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ParameterContainer" style="flex-grow: 1; padding-top: 0; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; background-color: rgb(77, 77, 77);">

@@ -6,13 +6,26 @@ using UnityEngine;
 
 namespace Core.Services
 {
-    public interface IImageService
-    {
-        Texture2D Load(string path);
-    }
-
     public class ImageService : IImageService
     {
+        public ImageService()
+        {
+            FileBrowser.SetFilters(false);
+            RequestPermissionAsynchronously();
+        }
+
+        private void RequestPermissionAsynchronously()
+        {
+#if UNITY_ANDROID || UNITY_IOS
+        // if (!FileBrowser.CheckPermission())
+        FileBrowser.RequestPermissionAsync((permission) =>
+        {
+            if (!(permission == FileBrowser.Permission.Granted))
+                ServiceLocator.Get<ILogService>().LogError("No permission received to use file browser")
+        });
+#endif
+        }
+
         public Texture2D Load(string path)
         {
             byte[] bytes;
@@ -37,6 +50,31 @@ namespace Core.Services
             texture.LoadImage(bytes);
 
             return texture;
+        }
+
+        public Task<string[]> OpenImageFile()
+        {
+            FileBrowser.SetFilters(false,
+                new FileBrowser.Filter("Images", ".png", ".jpg", ".jpeg")
+            );
+            FileBrowser.SetDefaultFilter(".png");
+
+            var result = new TaskCompletionSource<string[]>();
+            FileBrowser.ShowLoadDialog(
+                onSuccess: (paths) =>
+                {
+                    result.TrySetResult(paths);
+                },
+                onCancel: () =>
+                {
+                    result.TrySetResult(Array.Empty<string>());
+                },
+                pickMode: FileBrowser.PickMode.Files,
+                allowMultiSelection: true,
+                title: "Open Image"
+            );
+
+            return result.Task;
         }
     }
 }

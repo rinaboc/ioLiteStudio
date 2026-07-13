@@ -17,6 +17,10 @@ public class WindowView : View<WindowUIState>
         var filePanel = new FilePanelView(viewModel, windowTitle);
         windowContainer.Add(filePanel);
         _viewModel.Bind(filePanel);
+
+        var createNodePanel = new CreateNodePanelView(viewModel, windowTitle);
+        windowContainer.Add(createNodePanel);
+        _viewModel.Bind(createNodePanel);
     }
 
     public override void Dispose()
