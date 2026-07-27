@@ -1,8 +1,22 @@
+using System.Threading.Tasks;
 using Core.Domain;
 using Core.Features;
 using Core.Services;
 using NUnit.Framework;
 using UnityEngine;
+
+public class DummyImageService : IImageService
+{
+    public Texture2D Load(string path)
+    {
+        return new Texture2D(0, 0);
+    }
+
+    public Task<string[]> OpenImageFile()
+    {
+        return new TaskCompletionSource<string[]>().Task;
+    }
+}
 
 public abstract class NodeBaseTest
 {
@@ -23,7 +37,7 @@ public abstract class NodeBaseTest
         ServiceLocator.Register<IThreadPoolService>(new ThreadPoolService());
         ServiceLocator.Register<ILogService>(new LogService());
         ServiceLocator.Register<IKeyManager>(new KeyManager());
-        ServiceLocator.Register<IImageService>(new ImageService());
+        ServiceLocator.Register<IImageService>(new DummyImageService());
         ServiceLocator.Register<IViewModelManager>(new ViewModelManager(_dispatcher));
         ServiceLocator.Register<IViewFactory>(new ViewFactory());
 

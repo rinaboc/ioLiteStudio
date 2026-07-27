@@ -11,7 +11,7 @@ namespace UI.Viewport
         public MeshNodeView(IViewModel<MeshNodeUIState> viewModel, GameObject meshObject) : base(viewModel)
         {
             _meshObject = meshObject;
-            _meshMaterial = _meshObject.GetComponent<MeshRenderer>().material;
+            _meshMaterial = _meshObject.GetComponent<MeshRenderer>().sharedMaterial;
         }
 
         public override void Render(MeshNodeUIState state)

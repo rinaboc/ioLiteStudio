@@ -11,7 +11,7 @@ public partial class NodeInspectorElementView : VisualElement
     private TextField _editNodeName;
     private Toggle _visibilityToggle;
 
-    private InspectorElementCallbacks _inputCallbacks;
+    private NodeInspectorElementCallbacks _inputCallbacks;
 
     public NodeInspectorElementView()
     {
@@ -50,6 +50,9 @@ public partial class NodeInspectorElementView : VisualElement
 
     private void OnNameChanged(ChangeEvent<string> evt)
     {
+        _editNodeName.AddToClassList("hide");
+        _nodeName.RemoveFromClassList("hide");
+
         _inputCallbacks.OnSubmit?.Invoke(evt.newValue);
     }
 
@@ -63,7 +66,7 @@ public partial class NodeInspectorElementView : VisualElement
             AddToClassList("selected-element");
     }
 
-    public NodeInspectorElementView(NodeInspectorElement node, InspectorElementCallbacks callbacks) : this(node)
+    public NodeInspectorElementView(NodeInspectorElement node, NodeInspectorElementCallbacks callbacks) : this(node)
     {
         _inputCallbacks = callbacks;
 

@@ -6,5 +6,6 @@ namespace Core.Services
     {
         void CreateMeshNodeView(MeshNode meshNode);
         void DeleteMeshNodeView(int ID);
+        void ClearViews();
     }
 }

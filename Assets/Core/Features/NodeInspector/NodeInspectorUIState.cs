@@ -4,5 +4,5 @@ namespace Core.Features
         NodeInspectorElement[] Elements,
         int? SelectedElement,
         bool IsInspectorOpen = true
-    );
+    ) : InspectorUIState(IsInspectorOpen);
 }

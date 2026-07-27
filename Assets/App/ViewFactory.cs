@@ -5,6 +5,22 @@ using UI.Viewport;
 
 public class ViewFactory : IViewFactory
 {
+    public void ClearViews()
+    {
+        var viewModelManager = ServiceLocator.Get<IViewModelManager>();
+
+        if (!viewModelManager.TryGet<MeshNodeUIState>(out var viewModels))
+            return;
+
+        var nodeObjectManager = ServiceLocator.Get<INodeObjectManager>();
+
+        foreach (var viewModel in viewModels)
+        {
+            nodeObjectManager.Destroy(viewModel.State.ID);
+            viewModelManager.Destroy(viewModel);
+        }
+    }
+
     public void CreateMeshNodeView(MeshNode meshNode)
     {
         ServiceLocator.Get<INodeObjectManager>().Instantiate(meshNode, out var meshObject);

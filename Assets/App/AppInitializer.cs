@@ -79,6 +79,7 @@ public class AppInitializer : MonoBehaviour
         handlerManager.Register(new RedoCommandHandler());
         handlerManager.Register(new OpenWindowCommandHandler());
         handlerManager.Register(new CloseWindowCommandHandler());
+        handlerManager.Register(new WidgetToggleCommandHandler());
         #endregion
 
         #region Node Handlers

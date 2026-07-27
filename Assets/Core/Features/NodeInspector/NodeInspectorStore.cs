@@ -9,7 +9,7 @@ namespace Core.Features
         {
         }
 
-        protected override ContextMutationType[] ObservedMutations => new ContextMutationType[] { ContextMutationType.Node };
+        protected override ContextMutationType[] ObservedMutations => new ContextMutationType[] { ContextMutationType.Node, ContextMutationType.Session };
 
         protected override NodeInspectorUIState Build(IAppContext context)
         {
