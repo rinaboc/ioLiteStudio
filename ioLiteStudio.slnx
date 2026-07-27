@@ -11,4 +11,5 @@
   <Project Path="Serilog.Sinks.Unity3D.csproj" />
   <Project Path="PlayModeTests.csproj" />
   <Project Path="ioLite.UI.Viewport.csproj" />
+  <Project Path="ioLite.Input.csproj" />
 </Solution>

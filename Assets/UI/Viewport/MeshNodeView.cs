@@ -1,7 +1,8 @@
 using Core.Domain;
+using Core.Features;
 using UnityEngine;
 
-namespace Core.Features
+namespace UI.Viewport
 {
     public class MeshNodeView : View<MeshNodeUIState>
     {

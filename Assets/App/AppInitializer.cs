@@ -3,7 +3,7 @@ using Core.Data;
 using UnityEngine;
 using Core.Services;
 using Core.Features;
-using System.Threading.Tasks;
+using App;
 
 public class AppInitializer : MonoBehaviour
 {
@@ -31,6 +31,7 @@ public class AppInitializer : MonoBehaviour
         RegisterHandlers(handlerManager);
         CreateViewModels();
         gameObject.GetComponentInChildren<UIManager>().InitializeViews();
+        gameObject.GetComponentInChildren<InputBridge>().InitializeInputs();
     }
 
     private void CreateViewModels()
@@ -73,12 +74,21 @@ public class AppInitializer : MonoBehaviour
 
     void RegisterHandlers(IHandlerManager handlerManager)
     {
+        #region System Handlers
         handlerManager.Register(new UndoCommandHandler());
         handlerManager.Register(new RedoCommandHandler());
-        handlerManager.Register(new CreateMeshNodeCommandHandler());
-        handlerManager.Register(new CreateDeformerNodeCommandHandler());
         handlerManager.Register(new OpenWindowCommandHandler());
         handlerManager.Register(new CloseWindowCommandHandler());
+        #endregion
+
+        #region Node Handlers
+        handlerManager.Register(new CreateMeshNodeCommandHandler());
+        handlerManager.Register(new CreateDeformerNodeCommandHandler());
+        handlerManager.Register(new SelectNodeCommandHandler());
+        handlerManager.Register(new ChangeNodeNameCommandHandler());
+        handlerManager.Register(new DeleteNodeCommandHandler());
+        handlerManager.Register(new ToggleVisibilityCommandHandler());
+        #endregion
     }
 
     void Update()

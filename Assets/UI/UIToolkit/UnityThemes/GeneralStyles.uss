@@ -53,7 +53,7 @@ Button {
     min-height: 76px;
 }
 
-#InspectorTitle > * > * > #unity-checkmark {
+.iolite-toggle > * > #unity-checkmark {
     width: 30px;
     height: 30px;
     -unity-background-image-tint-color: rgb(72, 61, 139);
@@ -63,4 +63,17 @@ Button {
 #choicesContentContainer {
     flex-direction: row;
     justify-content: space-around;
+}
+
+.node-container {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 70px;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(77, 77, 77);
+}
+
+.selected-element {
+    background-color: rgb(103, 97, 112);
 }

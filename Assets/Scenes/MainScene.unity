@@ -393,6 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1342351674}
   - component: {fileID: 1342351675}
+  - component: {fileID: 1342351676}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -428,6 +429,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ioLite.Core.Services::Core.Services.UIManager
   _panelRenderer: {fileID: 1275044556}
+--- !u!114 &1342351676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342351673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdfac2d04b1f015d968b32eeb35a3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ioLite.App::App.InputBridge
+  _panelRenderer: {fileID: 1275044556}
+  _doubleClickAction: {fileID: 5653496364160731155, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _longPressAction: {fileID: 0}
 --- !u!1 &1961207765
 GameObject:
   m_ObjectHideFlags: 0

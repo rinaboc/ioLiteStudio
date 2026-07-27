@@ -13,15 +13,17 @@ namespace Core.Features
 
         protected override NodeInspectorUIState Build(IAppContext context)
         {
+            var session = context.CurrentSession as DefaultSession;
+
             var elements = context.Nodes.GetAll()
             .Select(node => new NodeInspectorElement(
                 node.Id,
                 node.Name,
                 node is MeshNode meshNode ? meshNode.LayerOrder : -1,
-                node.ParentId
+                node.ParentId,
+                node.Id == session.SelectedNodeId,
+                node.Visibility
             ));
-
-            var session = context.CurrentSession as DefaultSession;
 
             return new NodeInspectorUIState(
                 elements.ToArray(),

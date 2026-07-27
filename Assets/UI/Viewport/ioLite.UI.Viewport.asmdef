@@ -1,9 +1,10 @@
 {
     "name": "ioLite.UI.Viewport",
-    "rootNamespace": "",
+    "rootNamespace": "UI.Viewport",
     "references": [
         "GUID:b215501a57c234b43a7d04ecb11d78a2",
-        "GUID:56b8ea2476019734b82b076a803bd688"
+        "GUID:56b8ea2476019734b82b076a803bd688",
+        "GUID:b34bdc05bc090135db6a8ca14df4f2f9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

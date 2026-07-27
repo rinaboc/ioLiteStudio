@@ -1,5 +1,6 @@
 using System.Linq;
 using Core.Domain;
+using Core.Services;
 
 namespace Core.Features
 {
@@ -26,6 +27,13 @@ namespace Core.Features
 
                 if (session != null && session.SelectedNodeId == node.Id)
                     session.SelectedNodeId = null;
+
+                switch (node.Type)
+                {
+                    case NodeType.Mesh: ServiceLocator.Get<IViewFactory>().DeleteMeshNodeView(node.Id); break;
+                    case NodeType.Deformer: break; // TODO: delete node views
+                    default: break;
+                }
             }
 
             void revert()
@@ -37,6 +45,13 @@ namespace Core.Features
 
                 if (session != null)
                     session.SelectedNodeId = prevSelectedNodeId;
+
+                switch (node.Type)
+                {
+                    case NodeType.Mesh: ServiceLocator.Get<IViewFactory>().CreateMeshNodeView(node as MeshNode); break;
+                    case NodeType.Deformer: break; // TODO: create node view
+                    default: break;
+                }
             }
 
             return new CommandResult(
