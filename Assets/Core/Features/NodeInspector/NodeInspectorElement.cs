@@ -6,6 +6,8 @@ namespace Core.Features
         int LayerOrder,
         int? ParentID,
         bool IsSelected,
-        bool IsVisible
+        bool IsVisible,
+        int Depth,
+        bool HasChildren
     );
 }

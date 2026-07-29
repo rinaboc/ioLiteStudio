@@ -10,6 +10,7 @@ public partial class NodeInspectorElementView : VisualElement
     private Label _nodeName;
     private TextField _editNodeName;
     private Toggle _visibilityToggle;
+    private VisualElement _folderHandle;
 
     private NodeInspectorElementCallbacks _inputCallbacks;
 
@@ -38,8 +39,23 @@ public partial class NodeInspectorElementView : VisualElement
         _visibilityToggle.AddToClassList("iolite-toggle");
         _visibilityToggle.RegisterValueChangedCallback(OnVisibilityToggled);
 
+        _folderHandle = new()
+        {
+            pickingMode = PickingMode.Ignore
+        };
+        _folderHandle.AddToClassList("tree-span");
+        _folderHandle.style.visibility = Visibility.Hidden;
+
+        VisualElement span = new()
+        {
+            pickingMode = PickingMode.Ignore
+        };
+        span.style.flexGrow = 1;
+
+        Add(_folderHandle);
         Add(_nodeName);
         Add(_editNodeName);
+        Add(span);
         Add(_visibilityToggle);
     }
 
@@ -62,16 +78,41 @@ public partial class NodeInspectorElementView : VisualElement
         _editNodeName.SetValueWithoutNotify(node.Name);
         _visibilityToggle.SetValueWithoutNotify(node.IsVisible);
 
+        if (node.HasChildren)
+        {
+            _folderHandle.style.visibility = Visibility.Visible;
+            _folderHandle.pickingMode = PickingMode.Position;
+            _folderHandle.RegisterCallback<MouseDownEvent>(OnFolderHandleClicked, TrickleDown.NoTrickleDown);
+        }
+
         if (node.IsSelected)
             AddToClassList("selected-element");
+
+        for (int i = 0; i < node.Depth; i++)
+        {
+            var depthSpan = new VisualElement()
+            {
+                pickingMode = PickingMode.Ignore
+            };
+
+            depthSpan.style.visibility = Visibility.Hidden;
+            depthSpan.AddToClassList("tree-span");
+            Add(depthSpan);
+            depthSpan.SendToBack();
+        }
+    }
+
+    private void OnFolderHandleClicked(MouseDownEvent evt)
+    {
+        _inputCallbacks.OnFolderHandleToggled?.Invoke();
     }
 
     public NodeInspectorElementView(NodeInspectorElement node, NodeInspectorElementCallbacks callbacks) : this(node)
     {
         _inputCallbacks = callbacks;
 
-        RegisterCallback<MouseDownEvent>(OnContainerClicked, CallbackOptions.Removable);
-        RegisterCallback<DoubleClickEvent>(OnContinerDoubleClicked, CallbackOptions.Removable);
+        RegisterCallback<MouseDownEvent>(OnContainerClicked, TrickleDown.NoTrickleDown);
+        RegisterCallback<DoubleClickEvent>(OnContinerDoubleClicked, TrickleDown.NoTrickleDown);
     }
 
     private void OnContinerDoubleClicked(DoubleClickEvent evt)
@@ -91,6 +132,8 @@ public partial class NodeInspectorElementView : VisualElement
 
     ~NodeInspectorElementView()
     {
-        UnregisterAllRemovableCallbacks();
+        UnregisterCallback<MouseDownEvent>(OnContainerClicked);
+        UnregisterCallback<MouseDownEvent>(OnFolderHandleClicked);
+        UnregisterCallback<DoubleClickEvent>(OnContinerDoubleClicked);
     }
 }

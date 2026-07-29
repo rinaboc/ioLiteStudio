@@ -5,7 +5,8 @@ namespace Core.Services
     public interface IViewFactory
     {
         void CreateMeshNodeView(MeshNode meshNode);
-        void DeleteMeshNodeView(int ID);
+        void CreateDeformerNodeView(DeformerNode deformerNode);
+        void DeleteNodeView<TState>(int ID);
         void ClearViews();
     }
 }

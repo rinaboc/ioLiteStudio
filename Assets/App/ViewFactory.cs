@@ -21,6 +21,18 @@ public class ViewFactory : IViewFactory
         }
     }
 
+    public void CreateDeformerNodeView(DeformerNode deformerNode)
+    {
+        ServiceLocator.Get<INodeObjectManager>().Instantiate(deformerNode, out var deformerObject);
+
+        IViewModel<DeformerNodeUIState> viewModel = ServiceLocator.Get<IViewModelManager>().Create(
+            deformerNode.ToDeformerNodeUIState(),
+            (s, dispatcher) => new DeformerNodeStore(s, dispatcher, deformerNode.Id)
+        );
+
+        viewModel.Bind(new DeformerNodeView(viewModel, deformerObject));
+    }
+
     public void CreateMeshNodeView(MeshNode meshNode)
     {
         ServiceLocator.Get<INodeObjectManager>().Instantiate(meshNode, out var meshObject);
@@ -33,16 +45,22 @@ public class ViewFactory : IViewFactory
         viewModel.Bind(new MeshNodeView(viewModel, meshObject));
     }
 
-    public void DeleteMeshNodeView(int ID)
+    public void DeleteNodeView<TState>(int ID)
     {
+        if (!typeof(TState).IsSubclassOf(typeof(NodeUIState)))
+        {
+            ServiceLocator.Get<ILogService>().LogError($"[VIEWFACTORY] Cannot delete views of type {typeof(TState)}");
+            return;
+        }
+
         var viewModelManager = ServiceLocator.Get<IViewModelManager>();
 
-        if (!viewModelManager.TryGet<MeshNodeUIState>(out var viewModels))
+        if (!viewModelManager.TryGet<TState>(out var viewModels))
             return;
 
         foreach (var viewModel in viewModels)
         {
-            if (viewModel.State.ID == ID)
+            if ((viewModel.State as NodeUIState).ID == ID)
             {
                 viewModelManager.Destroy(viewModel);
                 break;

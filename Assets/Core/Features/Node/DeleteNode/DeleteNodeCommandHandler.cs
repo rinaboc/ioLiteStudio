@@ -30,8 +30,8 @@ namespace Core.Features
 
                 switch (node.Type)
                 {
-                    case NodeType.Mesh: ServiceLocator.Get<IViewFactory>().DeleteMeshNodeView(node.Id); break;
-                    case NodeType.Deformer: break; // TODO: delete node views
+                    case NodeType.Mesh: ServiceLocator.Get<IViewFactory>().DeleteNodeView<MeshNodeUIState>(node.Id); break;
+                    case NodeType.Deformer: ServiceLocator.Get<IViewFactory>().DeleteNodeView<DeformerNodeUIState>(node.Id); break;
                     default: break;
                 }
             }
@@ -49,7 +49,7 @@ namespace Core.Features
                 switch (node.Type)
                 {
                     case NodeType.Mesh: ServiceLocator.Get<IViewFactory>().CreateMeshNodeView(node as MeshNode); break;
-                    case NodeType.Deformer: break; // TODO: create node view
+                    case NodeType.Deformer: ServiceLocator.Get<IViewFactory>().CreateDeformerNodeView(node as DeformerNode); break;
                     default: break;
                 }
             }

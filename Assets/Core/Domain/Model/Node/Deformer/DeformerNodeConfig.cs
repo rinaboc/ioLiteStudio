@@ -1,4 +1,4 @@
 namespace Core.Domain
 {
-    public record DeformerNodeConfig(NodeConfig NodeConfig);
+    public record DeformerNodeConfig(NodeConfig NodeConfig, bool IsOpened = true);
 }

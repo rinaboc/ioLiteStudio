@@ -38,7 +38,7 @@ namespace Core.Features
             void revert()
             {
                 context.Nodes.Remove(meshNode.Id, out _);
-                ServiceLocator.Get<IViewFactory>().DeleteMeshNodeView(meshNode.Id);
+                ServiceLocator.Get<IViewFactory>().DeleteNodeView<MeshNodeUIState>(meshNode.Id);
             }
 
             return new CommandResult(

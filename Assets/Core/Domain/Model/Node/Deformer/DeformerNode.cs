@@ -3,6 +3,7 @@ namespace Core.Domain
     public class DeformerNode : Node
     {
         public override NodeType Type => NodeType.Deformer;
+        public bool IsOpened;
 
         public DeformerNode() { }
 
@@ -15,11 +16,12 @@ namespace Core.Domain
         {
             get
             {
-                return new DeformerNodeConfig(NodeConfig);
+                return new DeformerNodeConfig(NodeConfig, IsOpened);
             }
             set
             {
                 NodeConfig = value.NodeConfig;
+                IsOpened = value.IsOpened;
             }
         }
     }

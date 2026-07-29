@@ -14,7 +14,7 @@ namespace Core.Features
         Transform2D LocalTransform,
         MeshInfo DefaultMesh,
         Dictionary<int, Vector2> VertexOffsets
-    );
+    ) : NodeUIState(ID, Name, ParentID, Visibility, DefaultTransform, LocalTransform);
 
     public static class MeshNodeExtension
     {

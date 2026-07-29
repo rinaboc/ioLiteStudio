@@ -7,6 +7,7 @@ namespace UI.UIToolkit
         Action? OnClick = null,
         Action? OnDoubleClick = null,
         Action<string>? OnSubmit = null,
-        Action? OnVisibilityToggled = null
+        Action? OnVisibilityToggled = null,
+        Action? OnFolderHandleToggled = null
     ) : InputCallbacks(OnClick, OnDoubleClick);
 }
