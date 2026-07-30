@@ -1,3 +1,5 @@
+using Core.Domain;
+
 namespace Core.Features
 {
     public record NodeInspectorElement(
@@ -8,6 +10,8 @@ namespace Core.Features
         bool IsSelected,
         bool IsVisible,
         int Depth,
-        bool HasChildren
+        bool HasChildren,
+        bool IsOpened,
+        NodeType Type
     );
 }

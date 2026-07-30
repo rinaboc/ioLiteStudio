@@ -9,7 +9,7 @@ namespace UI.UIToolkit
     {
         protected Button _addButton, _deleteButton;
         private Toggle _inspectorToggle;
-        protected VisualElement _listElement;
+        protected ScrollView _listElement;
 
         protected abstract string InspectorLabelText { get; }
         protected abstract Widget InspectorWidget { get; }
@@ -24,7 +24,7 @@ namespace UI.UIToolkit
             _addButton = inspectorRoot.Q<Button>("AddBtn");
             _deleteButton = inspectorRoot.Q<Button>("DeleteBtn");
 
-            _listElement = inspectorRoot.Q<VisualElement>("List");
+            _listElement = inspectorRoot.Q<ScrollView>("List");
 
             _inspectorToggle = inspectorRoot.Q<Toggle>("InspectorToggle");
 

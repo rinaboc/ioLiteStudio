@@ -1,0 +1,56 @@
+:root {
+}
+
+.tree-span {
+    width: 25px;
+    height: 25px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    background-image: url("project://database/Assets/Textures/Icons/plus.png?fileID=2800000&guid=3a250705a68412348acda7a3afeca8c1&type=3#plus");
+    -unity-background-image-tint-color: rgb(55, 53, 67);
+    background-color: rgb(89, 89, 89);
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+}
+
+.selected-element {
+    background-color: rgb(103, 97, 112);
+}
+
+.node-container {
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 70px;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(77, 77, 77);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.iolite-toggle > * > #unity-checkmark {
+    width: 40px;
+    height: 40px;
+    -unity-background-image-tint-color: rgb(72, 61, 139);
+    background-color: rgb(128, 128, 128);
+}
+
+#Inspector .unity-toggle__input:checked > .unity-toggle__checkmark {
+    -unity-background-image-tint-color: rgb(72, 61, 139);
+    background-color: rgb(128, 128, 128);
+    background-size: 80% 80%;
+    background-image: url("project://database/Assets/Textures/Icons/visible.png?fileID=2800000&guid=9062ec34ab0fe8c46a6d6685abf066b0&type=3#visible");
+}
+
+.close-folder-icon {
+    background-image: url("project://database/Assets/Textures/Icons/minus.png?fileID=2800000&guid=081868589bc0d8d468bee9a39074d7e0&type=3#minus");
+}
+
+.deformer-node {
+    border-left-width: 4px;
+    border-left-color: rgb(147, 112, 219);
+}

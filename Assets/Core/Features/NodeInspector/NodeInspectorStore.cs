@@ -50,7 +50,9 @@ namespace Core.Features
                 parent.Id == session.SelectedNodeId,
                 parent.Visibility,
                 currentDepth,
-                children.Count() > 0
+                children.Count() > 0,
+                parent.Type == NodeType.Deformer && (parent as DeformerNode).IsOpened,
+                parent.Type
             ));
 
             if (parent.Type == NodeType.Deformer && (parent as DeformerNode).IsOpened)

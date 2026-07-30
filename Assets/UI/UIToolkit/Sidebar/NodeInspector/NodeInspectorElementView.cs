@@ -78,11 +78,19 @@ public partial class NodeInspectorElementView : VisualElement
         _editNodeName.SetValueWithoutNotify(node.Name);
         _visibilityToggle.SetValueWithoutNotify(node.IsVisible);
 
+        if (node.Type == Core.Domain.NodeType.Deformer)
+        {
+            AddToClassList("deformer-node");
+        }
+
         if (node.HasChildren)
         {
             _folderHandle.style.visibility = Visibility.Visible;
             _folderHandle.pickingMode = PickingMode.Position;
             _folderHandle.RegisterCallback<MouseDownEvent>(OnFolderHandleClicked, TrickleDown.NoTrickleDown);
+
+            if (node.IsOpened)
+                _folderHandle.AddToClassList("close-folder-icon");
         }
 
         if (node.IsSelected)
