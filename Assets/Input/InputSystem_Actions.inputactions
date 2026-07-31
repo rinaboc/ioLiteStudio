@@ -37,7 +37,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -46,7 +46,7 @@
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -55,7 +55,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -578,6 +578,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LongPress",
+                    "type": "PassThrough",
+                    "id": "e473f8b9-54d7-418c-9401-d729ecbb6b9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReleasePress",
+                    "type": "PassThrough",
+                    "id": "c43cff0a-986c-4671-9d21-7bf0d213605c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1014,7 +1032,7 @@
                     "name": "",
                     "id": "8b0abf43-a94f-40a5-8e49-a87df1768740",
                     "path": "<Pen>/tip",
-                    "interactions": "Hold",
+                    "interactions": "MultiTap",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "DoubleClick",
@@ -1025,10 +1043,54 @@
                     "name": "",
                     "id": "85b38646-d31f-4dff-8b46-6ae749069748",
                     "path": "<Touchscreen>/touch*/press",
-                    "interactions": "Hold",
+                    "interactions": "MultiTap",
                     "processors": "",
                     "groups": ";Touch",
                     "action": "DoubleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f4d0358-e4ff-4675-9c62-3af42527dec7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LongPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20460fc7-c953-43ae-ade6-b12aabb3939d",
+                    "path": "<Pen>/tip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LongPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec0c2ad4-4abb-40e9-b375-436c8de0f4a0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReleasePress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd4b7837-74d2-4c84-b1f5-0ea82469cf7a",
+                    "path": "<Pen>/tip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReleasePress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

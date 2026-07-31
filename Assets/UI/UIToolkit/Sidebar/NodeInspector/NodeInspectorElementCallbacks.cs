@@ -8,6 +8,8 @@ namespace UI.UIToolkit
         Action? OnDoubleClick = null,
         Action<string>? OnSubmit = null,
         Action? OnVisibilityToggled = null,
-        Action? OnFolderHandleToggled = null
+        Action? OnFolderHandleToggled = null,
+        Action? OnGrab = null,
+        Action<DropPosition>? OnDrop = null
     ) : InputCallbacks(OnClick, OnDoubleClick);
 }

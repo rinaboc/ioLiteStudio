@@ -121,6 +121,51 @@ public partial class NodeInspectorElementView : VisualElement
 
         RegisterCallback<MouseDownEvent>(OnContainerClicked, TrickleDown.NoTrickleDown);
         RegisterCallback<DoubleClickEvent>(OnContinerDoubleClicked, TrickleDown.NoTrickleDown);
+        RegisterCallback<LongPressEventStarted>(OnContainerGrabbed, TrickleDown.NoTrickleDown);
+        RegisterCallback<DragEvent>(OnContainerHoveredWhileDragging, TrickleDown.NoTrickleDown);
+        RegisterCallback<LongPressEventEnded>(OnContainerDropped, TrickleDown.NoTrickleDown);
+        RegisterCallback<MouseOutEvent>(OnMouseOut);
+    }
+
+    private void OnMouseOut(MouseOutEvent evt)
+    {
+        RemoveDropIndicator();
+    }
+
+    private void OnContainerDropped(LongPressEventEnded evt)
+    {
+        var dropPosition = DropZoneHelper.GetLocalDropPosition(evt.LocalPosition, this);
+        _inputCallbacks.OnDrop?.Invoke(dropPosition);
+    }
+
+    private void OnContainerHoveredWhileDragging(DragEvent evt)
+    {
+        var dropPosition = DropZoneHelper.GetLocalDropPosition(evt.LocalPosition, this);
+        UpdateDropIndicator(dropPosition);
+    }
+
+    private void UpdateDropIndicator(DropPosition dropPosition)
+    {
+        RemoveDropIndicator();
+
+        switch (dropPosition)
+        {
+            case DropPosition.Above: AddToClassList("drop-above"); break;
+            case DropPosition.Inside: AddToClassList("drop-inside"); break;
+            case DropPosition.Below: AddToClassList("drop-below"); break;
+        }
+    }
+
+    private void RemoveDropIndicator()
+    {
+        RemoveFromClassList("drop-above");
+        RemoveFromClassList("drop-inside");
+        RemoveFromClassList("drop-below");
+    }
+
+    private void OnContainerGrabbed(LongPressEventStarted evt)
+    {
+        _inputCallbacks.OnGrab?.Invoke();
     }
 
     private void OnContinerDoubleClicked(DoubleClickEvent evt)
@@ -143,5 +188,9 @@ public partial class NodeInspectorElementView : VisualElement
         UnregisterCallback<MouseDownEvent>(OnContainerClicked);
         UnregisterCallback<MouseDownEvent>(OnFolderHandleClicked);
         UnregisterCallback<DoubleClickEvent>(OnContinerDoubleClicked);
+        UnregisterCallback<LongPressEventStarted>(OnContainerGrabbed);
+        UnregisterCallback<DragEvent>(OnContainerHoveredWhileDragging);
+        UnregisterCallback<LongPressEventEnded>(OnContainerDropped);
+        UnregisterCallback<MouseOutEvent>(OnMouseOut);
     }
 }

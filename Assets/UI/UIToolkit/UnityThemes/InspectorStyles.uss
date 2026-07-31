@@ -26,10 +26,13 @@
     justify-content: flex-start;
     height: 70px;
     align-items: center;
-    border-bottom-width: 1px;
+    border-bottom-width: 2px;
     border-bottom-color: rgb(77, 77, 77);
     padding-left: 10px;
     padding-right: 10px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-left-width: 2px;
 }
 
 .iolite-toggle > * > #unity-checkmark {
@@ -53,4 +56,17 @@
 .deformer-node {
     border-left-width: 4px;
     border-left-color: rgb(147, 112, 219);
+}
+
+.drop-above {
+    border-top-width: 2px;
+    border-top-color: rgb(166, 128, 87);
+}
+
+.drop-inside {
+    background-color: rgb(113, 101, 88);
+}
+
+.drop-below {
+    border-bottom-color: rgb(166, 128, 87);
 }
