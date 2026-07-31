@@ -18,7 +18,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 		Assert.IsNotNull(node);
 		Assert.IsTrue(node.Visibility);
 
-		_dispatcher.Dispatch(new ToggleVisibilityIntent(node.Id));
+		_dispatcher.Dispatch(new ToggleNodeVisibilityIntent(node.Id));
 
 		Assert.IsFalse(node.Visibility);
 	}
@@ -35,8 +35,8 @@ public class ToggleVisibilityTests : NodeBaseTest
 		Assert.IsNotNull(node);
 		Assert.IsTrue(node.Visibility);
 
-		_dispatcher.Dispatch(new ToggleVisibilityIntent(node.Id));
-		_dispatcher.Dispatch(new ToggleVisibilityIntent(node.Id));
+		_dispatcher.Dispatch(new ToggleNodeVisibilityIntent(node.Id));
+		_dispatcher.Dispatch(new ToggleNodeVisibilityIntent(node.Id));
 
 		Assert.IsTrue(node.Visibility);
 	}
@@ -63,7 +63,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 		Assert.IsTrue(parentNode.Visibility);
 		Assert.IsTrue(childNode.Visibility);
 
-		_dispatcher.Dispatch(new ToggleVisibilityIntent(childNode.Id));
+		_dispatcher.Dispatch(new ToggleNodeVisibilityIntent(childNode.Id));
 
 		Assert.IsTrue(parentNode.Visibility);
 		Assert.IsFalse(childNode.Visibility);
@@ -81,7 +81,7 @@ public class ToggleVisibilityTests : NodeBaseTest
 		Assert.IsNotNull(node);
 		Assert.IsTrue(node.Visibility);
 
-		_dispatcher.Dispatch(new ToggleVisibilityIntent(node.Id));
+		_dispatcher.Dispatch(new ToggleNodeVisibilityIntent(node.Id));
 		Assert.IsFalse(node.Visibility);
 
 		_dispatcher.Dispatch(new UndoIntent());

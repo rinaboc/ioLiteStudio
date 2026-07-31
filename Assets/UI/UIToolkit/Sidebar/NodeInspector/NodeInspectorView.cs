@@ -36,7 +36,7 @@ public class NodeInspectorView : InspectorView<NodeInspectorUIState>
             _listElement.Add(new NodeInspectorElementView(node, new NodeInspectorElementCallbacks(
                 OnClick: () => _viewModel?.Dispatch(new SelectNodeIntent(node.ID)),
                 OnSubmit: (string name) => _viewModel?.Dispatch(new ChangeNodeNameIntent(node.ID, name)),
-                OnVisibilityToggled: () => _viewModel?.Dispatch(new ToggleVisibilityIntent(node.ID)),
+                OnVisibilityToggled: () => _viewModel?.Dispatch(new ToggleNodeVisibilityIntent(node.ID)),
                 OnFolderHandleToggled: () => _viewModel?.Dispatch(new ToggleDeformerFolderIntent(node.ID))
             )));
         }

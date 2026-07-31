@@ -1,6 +1,6 @@
 namespace Core.Features
 {
-    public record InspectorUIState(
+    public abstract record InspectorUIState(
         bool IsInspectorOpen = true
     );
 }

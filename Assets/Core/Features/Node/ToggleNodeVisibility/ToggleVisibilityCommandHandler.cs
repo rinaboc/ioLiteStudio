@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Core.Features
 {
-    public class ToggleVisibilityCommandHandler : ICommandHandler<ToggleVisibilityIntent>
+    public class ToggleNodeVisibilityCommandHandler : ICommandHandler<ToggleNodeVisibilityIntent>
     {
-        public CommandResult Execute(ToggleVisibilityIntent intent, IAppContext context)
+        public CommandResult Execute(ToggleNodeVisibilityIntent intent, IAppContext context)
         {
             if (!context.Nodes.TryGet(intent.ID, out var node))
             {
