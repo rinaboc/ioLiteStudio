@@ -90,6 +90,8 @@ public class AppInitializer : MonoBehaviour
         handlerManager.Register(new ChangeNodeNameCommandHandler());
         handlerManager.Register(new DeleteNodeCommandHandler());
         handlerManager.Register(new ToggleNodeVisibilityCommandHandler());
+        handlerManager.Register(new ReparentNodeCommandHandler());
+        handlerManager.Register(new ReparentNodeBySiblingCommandHandler());
         #endregion
     }
 

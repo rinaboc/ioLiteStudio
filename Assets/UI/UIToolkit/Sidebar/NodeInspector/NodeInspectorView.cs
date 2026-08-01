@@ -55,7 +55,11 @@ public class NodeInspectorView : InspectorView<NodeInspectorUIState>
     {
         if (_grabbedNodeID == null) return;
 
-        if (dropPosition == DropPosition.Inside)
-            _viewModel?.Dispatch(new ReparentNodeIntent((int)_grabbedNodeID, dropNodeID));
+        switch (dropPosition)
+        {
+            case DropPosition.Above: _viewModel?.Dispatch(new ReparentNodeBySiblingIntent((int)_grabbedNodeID, dropNodeID)); break;
+            case DropPosition.Below: _viewModel?.Dispatch(new ReparentNodeBySiblingIntent((int)_grabbedNodeID, dropNodeID)); break;
+            case DropPosition.Inside: _viewModel?.Dispatch(new ReparentNodeIntent((int)_grabbedNodeID, dropNodeID)); break;
+        }
     }
 }

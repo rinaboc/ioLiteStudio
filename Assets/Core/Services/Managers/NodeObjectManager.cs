@@ -10,6 +10,7 @@ namespace Core.Services
         bool Instantiate(MeshNode meshNode, out GameObject meshObject);
         bool Instantiate(DeformerNode deformerNode, out GameObject deformerObject);
         void Destroy(params int[] IDs);
+        void Reparent(int node, int? newParent);
         void Configure(Material meshMaterial, Transform sceneRoot);
     }
 
@@ -113,6 +114,23 @@ namespace Core.Services
             }
 
             return true;
+        }
+
+        public void Reparent(int node, int? newParent)
+        {
+            if (!_nodeObjects.TryGetValue(node, out var nodeObject))
+                return;
+
+            if (newParent == null)
+            {
+                nodeObject.transform.parent = _sceneRoot.transform;
+                return;
+            }
+
+            if (!_nodeObjects.TryGetValue((int)newParent, out var parentObject))
+                return;
+
+            nodeObject.transform.parent = parentObject.transform;
         }
     }
 }

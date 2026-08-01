@@ -1,4 +1,3 @@
-using System;
 using Core.Features;
 using Input;
 using UI.UIToolkit;
@@ -13,6 +12,7 @@ public partial class NodeInspectorElementView : VisualElement
     private VisualElement _folderHandle;
 
     private NodeInspectorElementCallbacks _inputCallbacks;
+    private bool _canDropInside = false;
 
     public NodeInspectorElementView()
     {
@@ -77,6 +77,7 @@ public partial class NodeInspectorElementView : VisualElement
         _nodeName.text = node.Name;
         _editNodeName.SetValueWithoutNotify(node.Name);
         _visibilityToggle.SetValueWithoutNotify(node.IsVisible);
+        _canDropInside = node.Type == Core.Domain.NodeType.Deformer;
 
         if (node.Type == Core.Domain.NodeType.Deformer)
         {
@@ -151,7 +152,7 @@ public partial class NodeInspectorElementView : VisualElement
         switch (dropPosition)
         {
             case DropPosition.Above: AddToClassList("drop-above"); break;
-            case DropPosition.Inside: AddToClassList("drop-inside"); break;
+            case DropPosition.Inside: if (_canDropInside) AddToClassList("drop-inside"); break;
             case DropPosition.Below: AddToClassList("drop-below"); break;
         }
     }

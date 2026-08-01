@@ -1,3 +1,5 @@
+using Core.Domain;
+
 #ROOTNAMESPACEBEGIN#
-    public record #SCRIPTNAME# () : IIntent;
+    public record #SCRIPTNAME#() : IIntent;
 #ROOTNAMESPACEEND#
