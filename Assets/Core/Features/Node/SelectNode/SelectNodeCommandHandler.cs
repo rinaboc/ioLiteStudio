@@ -7,7 +7,7 @@ namespace Core.Features
         public CommandResult Execute(SelectNodeIntent intent, IAppContext context)
         {
             if (context.CurrentSession.CurrentWorkspace != WorkspaceMode.Default)
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
 
             var session = context.CurrentSession as DefaultSession;
             var prevSelectedId = session.SelectedNodeId;

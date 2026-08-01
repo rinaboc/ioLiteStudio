@@ -10,7 +10,7 @@ namespace Core.Features
             if (!context.Nodes.TryGet(intent.ID, out var node))
             {
                 ServiceLocator.Get<ILogService>().LogError("[CHANGE_NODE_NAME] Couldn't change name of node.");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             var previousName = node.Name;

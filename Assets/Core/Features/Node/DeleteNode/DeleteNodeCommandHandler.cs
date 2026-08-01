@@ -11,7 +11,7 @@ namespace Core.Features
             if (context.CurrentSession.CurrentWorkspace != WorkspaceMode.Default || !context.Nodes.TryGet(intent.ID, out var node))
             {
                 ServiceLocator.Get<ILogService>()?.LogError("[DELETE_NODE] Cannot delete node.");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             var session = context.CurrentSession as DefaultSession;

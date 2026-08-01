@@ -12,7 +12,7 @@ namespace Core.Features
             if (keyManager == null || context.CurrentSession.CurrentWorkspace != WorkspaceMode.Default)
             {
                 ServiceLocator.Get<ILogService>()?.LogError("[CREATE_DEFORMER_NODE] Couldn't create node.");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             var session = context.CurrentSession as DefaultSession;

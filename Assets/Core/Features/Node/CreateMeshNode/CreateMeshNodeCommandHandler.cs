@@ -14,7 +14,7 @@ namespace Core.Features
                 context.CurrentSession.CurrentWorkspace != WorkspaceMode.Default)
             {
                 ServiceLocator.Get<ILogService>()?.LogError("[CREATE_MESH_NODE] Couldn't create node.");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             var session = context.CurrentSession as DefaultSession;

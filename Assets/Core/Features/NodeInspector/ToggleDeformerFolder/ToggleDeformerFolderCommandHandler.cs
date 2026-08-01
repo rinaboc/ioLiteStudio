@@ -9,7 +9,7 @@ namespace Core.Features
             if (!context.Nodes.TryGet(intent.ID, out var node) || node.Type != NodeType.Deformer)
             {
                 ServiceLocator.Get<ILogService>().LogError("[TOGGLE_FOLDER] Couldn't find node or node is not a Deformer");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             var previousState = (node as DeformerNode).IsOpened;
@@ -19,9 +19,8 @@ namespace Core.Features
                 (node as DeformerNode).IsOpened = !previousState;
             }
 
-            return new CommandResult(
+            return CommandResult.MutationOnly(
                 mutation,
-                null,
                 new ContextMutationResult(ContextMutationType.Session)
             );
         }

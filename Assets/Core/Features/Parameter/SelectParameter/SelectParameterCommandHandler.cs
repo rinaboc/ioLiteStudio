@@ -8,7 +8,7 @@ namespace Core.Features
         public CommandResult Execute(SelectParameterIntent intent, IAppContext context)
         {
             if (context.CurrentSession.CurrentWorkspace != WorkspaceMode.Default)
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
 
             var session = context.CurrentSession as DefaultSession;
             var prevSelectedId = session.SelectedParamId;

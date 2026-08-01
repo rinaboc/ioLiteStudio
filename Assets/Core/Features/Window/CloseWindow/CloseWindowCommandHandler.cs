@@ -6,9 +6,8 @@ namespace Core.Features
     {
         public CommandResult Execute(CloseWindowIntent intent, IAppContext context)
         {
-            return new CommandResult(
+            return CommandResult.MutationOnly(
                 () => context.CurrentSession.IsWindowOpen = false,
-                null,
                 new ContextMutationResult(ContextMutationType.Session)
             );
         }

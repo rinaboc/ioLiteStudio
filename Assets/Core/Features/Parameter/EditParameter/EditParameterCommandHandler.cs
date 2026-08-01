@@ -7,7 +7,7 @@ namespace Core.Features
         public CommandResult Execute(EditParameterIntent intent, IAppContext context)
         {
             if (!context.Parameters.TryGet(intent.ID, out var parameter))
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
 
             var prevConfig = parameter.Config;
 

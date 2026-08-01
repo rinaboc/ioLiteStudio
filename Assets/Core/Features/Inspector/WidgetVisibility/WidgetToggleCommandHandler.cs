@@ -6,7 +6,7 @@ namespace Core.Features
     {
         public CommandResult Execute(WidgetToggleIntent intent, IAppContext context)
         {
-            if (context.CurrentSession is not DefaultSession) return new CommandResult(null, null, null);
+            if (context.CurrentSession is not DefaultSession) return CommandResult.None;
 
             DefaultSession session = context.CurrentSession as DefaultSession;
 
@@ -19,9 +19,8 @@ namespace Core.Features
 
             }
 
-            return new CommandResult(
+            return CommandResult.MutationOnly(
                 mutation,
-                null,
                 new ContextMutationResult(ContextMutationType.Session)
             );
         }

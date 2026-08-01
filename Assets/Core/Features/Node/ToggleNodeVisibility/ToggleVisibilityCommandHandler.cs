@@ -10,7 +10,7 @@ namespace Core.Features
             if (!context.Nodes.TryGet(intent.ID, out var node))
             {
                 ServiceLocator.Get<ILogService>().LogError("[TOGGLE_VISIBILITY] Couldn't change visibility of node.");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             var previousVisibility = node.Visibility;

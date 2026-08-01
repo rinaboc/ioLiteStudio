@@ -6,13 +6,12 @@ namespace Core.Features
     {
         public CommandResult Execute(OpenWindowIntent intent, IAppContext context)
         {
-            return new CommandResult(
+            return CommandResult.MutationOnly(
                 () =>
                 {
                     context.CurrentSession.IsWindowOpen = true;
                     context.CurrentSession.WindowType = intent.WindowType;
                 },
-                null,
                 new ContextMutationResult(ContextMutationType.Session)
             );
         }

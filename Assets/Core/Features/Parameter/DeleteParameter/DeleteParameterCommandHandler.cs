@@ -9,7 +9,7 @@ namespace Core.Features
             if (!context.Parameters.TryGet(intent.ID, out var parameter))
             {
                 ServiceLocator.Get<ILogService>()?.LogError("[DELETE_PARAMETER] No parameter with this ID found.");
-                return new CommandResult(null, null, null);
+                return CommandResult.None;
             }
 
             void mutation()
