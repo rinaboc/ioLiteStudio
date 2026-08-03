@@ -24,27 +24,24 @@ namespace Core.Features
                 }
             }
 
-            if (context.Nodes.GetChildGraph(node.Id).Contains((int)intent.ParentID) || intent.ParentID == intent.NodeID)
+            if ((intent.ParentID != null && context.Nodes.GetChildGraph(node.Id).Contains((int)intent.ParentID))
+                || intent.ParentID == node.Id
+            )
             {
                 return CommandResult.None;
             }
 
             var previousParent = node.ParentId;
 
-            void mutation()
+            void reparentNodeTo(int? parent)
             {
-                node.ParentId = intent.ParentID;
-                ServiceLocator.Get<INodeObjectManager>().Reparent(node.Id, node.ParentId);
-            }
-
-            void revert()
-            {
-                node.ParentId = previousParent;
+                node.ParentId = parent;
+                ServiceLocator.Get<INodeObjectManager>().Reparent(node.Id, parent);
             }
 
             return new CommandResult(
-                mutation,
-                revert,
+                () => reparentNodeTo(intent.ParentID),
+                () => reparentNodeTo(previousParent),
                 new ContextMutationResult(ContextMutationType.Node)
             );
         }

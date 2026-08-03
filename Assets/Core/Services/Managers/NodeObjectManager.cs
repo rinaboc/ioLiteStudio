@@ -123,7 +123,7 @@ namespace Core.Services
 
             if (newParent == null)
             {
-                nodeObject.transform.parent = _sceneRoot.transform;
+                nodeObject.transform.parent = _sceneRoot;
                 return;
             }
 

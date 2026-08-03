@@ -23,44 +23,25 @@ namespace Core.Features
                 newParentID = sibling.ParentId;
             }
 
-            if (intent.SiblingID == intent.NodeID)
+            if (intent.SiblingID == intent.NodeID
+                || node.ParentId == newParentID
+                || node.Id == newParentID
+                || (newParentID != null && context.Nodes.GetChildGraph(node.Id).Contains((int)newParentID)))
             {
-                logger.LogInfo("sibling and node id is the same");
-                return CommandResult.None;
-            }
-
-            if (node.ParentId == newParentID) return CommandResult.None;
-
-            if (node.Id == newParentID)
-            {
-                logger.LogInfo("node cannot be parent of itself");
-                return CommandResult.None;
-            }
-
-            if (newParentID != null &&
-                context.Nodes.GetChildGraph(node.Id).Contains((int)newParentID))
-            {
-                logger.LogError("node's subtree contains the new parent");
                 return CommandResult.None;
             }
 
             var previousParentID = node.ParentId;
 
-            void mutation()
+            void reparentNodeTo(int? parent)
             {
-                node.ParentId = newParentID;
-                ServiceLocator.Get<INodeObjectManager>().Reparent(node.Id, newParentID);
-            }
-
-            void revert()
-            {
-                node.ParentId = previousParentID;
-                ServiceLocator.Get<INodeObjectManager>().Reparent(node.Id, previousParentID);
+                node.ParentId = parent;
+                ServiceLocator.Get<INodeObjectManager>().Reparent(node.Id, parent);
             }
 
             return new CommandResult(
-                mutation,
-                revert,
+                () => reparentNodeTo(newParentID),
+                () => reparentNodeTo(previousParentID),
                 new ContextMutationResult(ContextMutationType.Node)
             );
         }
