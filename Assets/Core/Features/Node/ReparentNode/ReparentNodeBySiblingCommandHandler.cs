@@ -1,4 +1,3 @@
-using System.Linq;
 using Core.Domain;
 using Core.Services;
 
@@ -9,25 +8,26 @@ namespace Core.Features
         public CommandResult Execute(ReparentNodeBySiblingIntent intent, IAppContext context)
         {
             var logger = ServiceLocator.Get<ILogService>();
-            if (!context.Nodes.TryGet(intent.NodeID, out var node))
+            if (!context.Nodes.TryGet(intent.NodeID, out var node) || intent.NodeID == intent.SiblingID)
             {
                 logger.LogError("[REPARENT_NODE_BY_SIBLING] Couldn't reparent node.");
                 return CommandResult.None;
             }
 
-            int? newParentID = null;
-
-            if (intent.SiblingID != null)
+            if (intent.SiblingID is not int sid || !context.Nodes.TryGet(sid, out var sibling))
             {
-                context.Nodes.TryGet((int)intent.SiblingID, out var sibling);
-                newParentID = sibling.ParentId;
+                logger.LogError("[REPARENT_NODE_BY_SIBLING] Sibling is null");
+                return CommandResult.None;
             }
 
-            if (intent.SiblingID == intent.NodeID
-                || node.ParentId == newParentID
-                || node.Id == newParentID
-                || (newParentID != null && context.Nodes.GetChildGraph(node.Id).Contains((int)newParentID)))
+            int? newParentID = sibling.ParentId;
+
+            if (!ReparentValidatorHelper.TryValidateParent(newParentID, context, logger))
+                return CommandResult.None;
+
+            if (ReparentValidatorHelper.IsCircularReparenting(newParentID, node.Id, context))
             {
+                logger.LogError("[REPARENT_NODE_BY_SIBLING] New parent creates circular dependency.");
                 return CommandResult.None;
             }
 

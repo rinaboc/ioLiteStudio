@@ -1,4 +1,3 @@
-using System.Linq;
 using Core.Domain;
 using Core.Services;
 
@@ -8,26 +7,20 @@ namespace Core.Features
     {
         public CommandResult Execute(ReparentNodeIntent intent, IAppContext context)
         {
+            var logService = ServiceLocator.Get<ILogService>();
+
             if (!context.Nodes.TryGet(intent.NodeID, out var node))
             {
-                ServiceLocator.Get<ILogService>().LogError("[REPARENT_NODE] Couldn't reparent node.");
+                logService.LogError("[REPARENT_NODE] Couldn't reparent node.");
                 return CommandResult.None;
             }
 
-            if (intent.ParentID != null)
-            {
-                context.Nodes.TryGet((int)intent.ParentID, out var parent);
-                if (parent.Type != NodeType.Deformer)
-                {
-                    ServiceLocator.Get<ILogService>().LogError("[REPARENT_NODE] Only deformer nodes can be used as parents.");
-                    return CommandResult.None;
-                }
-            }
+            if (!ReparentValidatorHelper.TryValidateParent(intent.ParentID, context, logService))
+                return CommandResult.None;
 
-            if ((intent.ParentID != null && context.Nodes.GetChildGraph(node.Id).Contains((int)intent.ParentID))
-                || intent.ParentID == node.Id
-            )
+            if (ReparentValidatorHelper.IsCircularReparenting(intent.ParentID, node.Id, context))
             {
+                logService.LogError("[REPARENT_NODE] New parent creates circular dependency.");
                 return CommandResult.None;
             }
 
